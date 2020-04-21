@@ -35,16 +35,21 @@
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
     <div class="container">
       <a class="navbar-brand" href="#">Peminjaman Alat Musik</a>
-      <form action="" method="get" class="form-inline" >
-      <a href="php/admin.php" class="btn btn-outline-dark my-2 my-sm-0" type="submit" name="admin">Admin</a>
-  </form>
+      <form class="form-inline" action="" method="get">
+            <div class="form-group mx-sm-3 mb-2">
+              <input type="text" class="form-control" placeholder="Cari" name="keyword" id="keyword" autofocus>
+            </div>
+            <button type="submit" class="btn btn-dark mb-2 mr-3" name="cari" id="tombol-cari">Cari</button>
+            <a href="php/admin.php" type="submit" class="btn btn-dark mb-2" name="refresh">Admin</a>
+          </form>
+        </div>
     </div>
     </nav>
 
   <!-- CARD -->
   <section class="alat">
-  <div class="container">
     <h1 class="text-primary text-center mt-5 pt-5">DAFTAR ALAT MUSIK</h1>
+  <div class="container" id="container">
     <div class="row">
     <?php foreach($alat_musik as $am) : ?>
       <div class="col-sm-3 mb-3">
@@ -60,7 +65,8 @@
   </div>
   </div>
   </section>
-</body>
+
+    <script src="js/script.js"></script>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
