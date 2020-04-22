@@ -61,7 +61,7 @@ $mahasiswa = query("SELECT * FROM mahasiswa");
 
   <div class="row">
     <div class="col">
-      <a href="#" type="button" class="btn btn-danger" data-toggle="tooltip" data-placement="bottom" title="Tambah Data"><i class="fas fa-plus-circle"></i> Tambah Mahasiswa</a>
+      <a href="tambah.php" type="button" class="btn btn-danger" data-toggle="tooltip" data-placement="bottom" title="Tambah Data"><i class="fas fa-plus-circle"></i> Tambah Mahasiswa</a>
     </div>
   </div>
 
