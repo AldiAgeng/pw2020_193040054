@@ -1,6 +1,24 @@
 <?php
   require '../config/functions.php';
-   $alat_musik = query("SELECT * FROM alat_musik");
+
+  $alat_musik = query("SELECT * FROM alat_musik");
+
+  if(isset($_GET['cari'])){
+    $keyword = $_GET['keyword'];
+    $alat_musik = query("SELECT * FROM alat_musik WHERE 
+                        nama_alat_musik LIKE '%$keyword%' OR
+                        merk LIKE '%$keyword%' OR
+                        harga LIKE '%$keyword%' OR 
+                        cara_dimainkan LIKE '%$keyword%' OR
+                        jumlah_alat LIKE '%$keyword%' ");
+  }else if(isset($_GET['refresh'])){
+    echo "<script>
+    document.location.href = 'alat_musik.php';
+    </script>";
+  }else{
+    $alat_musik = query("SELECT * FROM alat_musik");
+  }
+
 ?>
 <!doctype html>
 <html lang="en">
@@ -16,8 +34,7 @@
     <link rel="stylesheet" type="text/css" href="../assets/css/fontawesome-free/css/all.min.css">
 
     <!-- MYCSS -->
-    <link rel="stylesheet" type="text/css" href="../assets/css/admin.css">
-
+    
     <style>
     .nav-link:hover {
   background-color: gray;
@@ -52,7 +69,7 @@
       <div class="icon ml-auto">
         <h5>
           <i class="fas fa-envelope mr-3" data-toggle="tooltip" title="Surat Masuk"></i>
-          <i class="fas fa-sign-out-alt mr-3" data-toggle="tooltip" title="Sign Out"></i>
+          <a href="../index.php"><i class="fas fa-sign-out-alt mr-3" data-toggle="tooltip" title="Sign Out"></i></a>
         </h5>
       </div>
     </div>
@@ -68,7 +85,7 @@
           <hr class="bg-secondary">
         </li>
         <li class="nav-item">
-          <a class="nav-link text-white" href="#">
+          <a class="nav-link text-white" href="alat_musik.php">
             <i class="fas fa-music mr-2"></i> Daftar Alat Musik</a>
           <hr class="bg-secondary">
         </li>
@@ -87,6 +104,9 @@
             <i class="fas fa-users-cog mr-2"></i> Daftar Admin</a>
           <hr class="bg-secondary">
         </li>
+        <?php for($i = 1; $i <=11; $i++) : ?>
+        <li>&nbsp;</li>
+        <?php endfor ?>
       </ul>
     </div>
 
@@ -95,20 +115,22 @@
 
       <div class="row">
         <div class="col">
-          <button type="button" class="btn btn-dark" data-toggle="tooltip" data-placement="bottom" title="Tambah Data"><i class="fas fa-plus-circle"></i> Tambah Alat Musik</button>
+          <a href="tambah_alat_musik.php" type="button" class="btn btn-dark" data-toggle="tooltip" data-placement="bottom" title="Tambah Data"><i class="fas fa-plus-circle"></i> Tambah Alat Musik</a>
         </div>
 
-        <div class="col" style="margin-left:560px;">
-          <form class="form-inline">
+        <div class="col" style="margin-left:370px;">
+          <form class="form-inline" action="" method="get">
             <div class="form-group mx-sm-3 mb-2">
-              <input type="text" class="form-control" placeholder="Cari">
+              <input type="text" class="form-control" placeholder="Cari" name="keyword" autofocus>
             </div>
-            <button type="submit" class="btn btn-dark mb-2">Cari</button>
+            <button type="submit" class="btn btn-dark mb-2 mr-3" name="cari">Cari</button>
+            <button type="submit" class="btn btn-dark mb-2" name="refresh">Refresh</button>
           </form>
         </div>
       </div>
 
 
+    
       <table class="table text-center mt-3">
         <thead class="thead-dark table-bordered">
           <tr>
@@ -123,27 +145,35 @@
           </tr>
         </thead>
         <tbody>
+          <?php if (empty($alat_musik)) : ?>
+          <tr>
+            <td colspan="9">
+              <h3>Data Tidak Ditemukan</h3>
+            </td>
+          </tr>
+          <?php else : ?>
           <?php $i =1; ?>
           <?php foreach ($alat_musik as $am) : ?>
           <tr>
             <th scope="row"><?= $i ?></th>
             <td><img src="../assets/image/upload/<?= $am["gambar"] ?>"></td>
             <td><?= $am["nama_alat_musik"] ?></td>
-            <td><?= $am["nama_alat_musik"] ?></td>
+            <td><?= $am["merk"] ?></td>
             <td><?= $am["harga"] ?></td>
             <td><?= $am["cara_dimainkan"] ?></td>
             <td><?= $am["jumlah_alat"] ?></td>
-            <td><button type="button" class="btn btn-info" data-toggle="tooltip" data-placement="bottom" title="Edit Data"><i class="fas fa-edit"></i> Edit</button></td>
-            <td><button type="button" class="btn btn-info" data-toggle="tooltip" data-placement="bottom" title="Hapus Data"><i class="fas fa-trash-alt"></i> Hapus</button></td>
+            <td><a href="ubah_alat_musik.php?id=<?= $am['id'] ?>" type="button" class="btn btn-info" data-toggle="tooltip" data-placement="bottom" title="Edit Data"><i class="fas fa-edit"></i> Edit</a></td>
+            <td><a href="hapus_alat_musik.php?id=<?= $am['id'] ?>" onclick="return confirm('Hapus Data?')" type="button" class="btn btn-info" data-toggle="tooltip" data-placement="bottom" title="Hapus Data"><i class="fas fa-trash-alt"></i> Hapus</a></td>
           </tr>
           <?php $i++ ?>
           <?php endforeach ?>
+          <?php endif ?>
         </tbody>
       </table>
       <div class="row">
         <div class="col">
           <hr>
-          <footer><p>Copyright Aldi Ageng 2020</p></footer>
+          <footer><p>Copyright&#169; AldiAgeng2020</p></footer>
         </div>
       </div>
     </div>

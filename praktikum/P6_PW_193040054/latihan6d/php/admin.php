@@ -128,7 +128,7 @@
             <th scope="row"><?= $i ?></th>
             <td><img src="../assets/img/<?= $am["gambar"] ?>"></td>
             <td><?= $am["nama_alat_musik"] ?></td>
-            <td><?= $am["nama_alat_musik"] ?></td>
+            <td><?= $am["merk"] ?></td>
             <td><?= $am["harga"] ?></td>
             <td><?= $am["cara_dimainkan"] ?></td>
             <td><?= $am["jumlah_alat"] ?></td>
