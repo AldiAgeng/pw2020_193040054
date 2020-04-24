@@ -85,7 +85,9 @@
 
   function hapus($id){
     $conn = koneksi();
+
     mysqli_query($conn, "DELETE FROM alat_musik WHERE id = $id");
+
 
     return mysqli_affected_rows($conn);
   }
@@ -99,7 +101,11 @@
     $harga = htmlspecialchars($data['harga']);
     $cara_dimainkan = htmlspecialchars($data['cara_dimainkan']);
     $jumlah_alat = htmlspecialchars($data['jumlah_alat']);
-    $gambar = htmlspecialchars($data['gambar']);
+    
+    $gambar = upload();
+    if($gambar == false){
+      return false;
+    }
 
     $queryubah = "UPDATE alat_musik SET
                 nama_alat_musik = '$nama_alat_musik',

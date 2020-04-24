@@ -31,6 +31,13 @@
     <!-- FONTAWESOWE -->
     <link rel="stylesheet" type="text/css" href="../assets/css/fontawesome-free/css/all.min.css">
 
+    <style>
+    form img{
+      width: 50px;
+      height: 50px;
+    }
+    </style>
+
 
     <title>Form Ubah Data Alat Musik</title>
   </head>
@@ -57,7 +64,7 @@
       <div class="col p-5 pt-2">
       <h3><i class="fas fa-music mr-2"></i> UBAH ALAT MUSIK</a></h3><hr>
       
-      <form action="" method="post">
+      <form action="" method="post" enctype="multipart/form-data">
         <input type="hidden" name="id" id="id" value="<?= $alat_musik['id'] ?>">
         <div class="form-group">
           <label for="nama_alat_musik">Nama Alat Musik</label>
@@ -81,7 +88,7 @@
         </div>
         <div class="form-group">
           <label for="gambar">Gambar</label>
-          <input type="text" name="gambar" class="form-control" id="gambar" placeholder="Gambar" required value="<?= $alat_musik['gambar'] ?>">
+          <input type="file" name="gambar" class="form-control" id="gambar" placeholder="Gambar" required value="<?= $alat_musik['gambar'] ?>">
         </div>
         <button type="submit" name="ubah" class="btn btn-info">Ubah</button>
         <a href="alat_musik.php" type="submit" class="btn btn-info">Kembali</a>
