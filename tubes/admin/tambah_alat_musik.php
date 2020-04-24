@@ -53,7 +53,7 @@
       <div class="col p-5 pt-2">
       <h3><i class="fas fa-music mr-2"></i> TAMBAH ALAT MUSIK</a></h3><hr>
       
-      <form action="" method="post">
+      <form action="" method="post" enctype="multipart/form-data">
         <div class="form-group">
           <label for="nama_alat_musik">Nama Alat Musik</label>
           <input type="text" name="nama_alat_musik" class="form-control" id="nama_alat_musik" placeholder="Nama Alat Musik" required>
@@ -76,7 +76,7 @@
         </div>
         <div class="form-group">
           <label for="gambar">Gambar</label>
-          <input type="text" name="gambar" class="form-control" id="gambar" placeholder="Gambar" required>
+          <input type="file" name="gambar" class="form-control" id="gambar" placeholder="Gambar" required>
         </div>
         <button type="submit" name="tambah" class="btn btn-info">Tambah</button>
         <a href="alat_musik.php" type="submit" class="btn btn-info">Kembali</a>

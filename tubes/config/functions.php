@@ -25,7 +25,12 @@
     $harga = htmlspecialchars($data['harga']);
     $cara_dimainkan = htmlspecialchars($data['cara_dimainkan']);
     $jumlah_alat = htmlspecialchars($data['jumlah_alat']);
-    $gambar = htmlspecialchars($data['gambar']);
+
+    //upload 
+    $gambar = upload();
+    if($gambar == false){
+      return false;
+    }
 
     $query =  "INSERT INTO alat_musik
               VALUES
@@ -33,6 +38,49 @@
     
     mysqli_query($conn,$query);
     return mysqli_affected_rows($conn);
+  }
+
+  function upload(){
+    
+    $namaFile = $_FILES['gambar']['name'];
+    $ukuranFile = $_FILES['gambar']['size'];
+    $error = $_FILES['gambar']['error'];
+    $tmpName = $_FILES['gambar']['tmp_name'];
+
+    //cek gambar diupload apa tidak
+    if($error ===4){
+      echo "<script>
+        alert('Anda tidak memilih gambar, pilih gambar dahulu');
+      </script>";
+      return false;
+    }
+
+    //cek ektensi gambar
+    $ekstensiGambarValid = ['jpg','jpeg','png'];
+    //pecah nama file
+    $ekstensiGambar = explode('.',$namaFile);
+    //mengambil nama yang paling akhir (ekstensi filenya)
+    $ekstensiGambar = strtolower(end($ekstensiGambar));
+
+    if(!in_array($ekstensiGambar,$ekstensiGambarValid)){
+      echo "<script>
+        alert('yang Anda upload bukan gambar');
+      </script>";
+      return false;
+    }
+
+    //cek ukuran file jangan lebih dari 1mb
+    if( $ukuranFile > 1000000){
+      echo "<script>
+        alert('ukuran gambar terlalu besar');
+      </script>";
+      return false;
+    }
+
+    //lolos pengecekan, dan di upload
+    move_uploaded_file($tmpName, '../assets/image/upload/' . $namaFile);
+    
+    return $namaFile;
   }
 
   function hapus($id){
