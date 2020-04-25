@@ -22,7 +22,7 @@
     <style>
     .nav-link:hover {
   background-color: gray;
-}
+  }
     .card-body-icon{
       position: absolute;
       z-index: 0;
@@ -30,6 +30,9 @@
       right: 4px;
       opacity: 0.5;
       font-size: 90px;
+    }
+    .icon a{
+      color: white;
     }
     </style>
 
@@ -47,8 +50,7 @@
       
       <div class="icon ml-auto">
         <h5>
-          <i class="fas fa-envelope mr-3" data-toggle="tooltip" title="Surat Masuk"></i>
-          <i class="fas fa-sign-out-alt mr-3" data-toggle="tooltip" title="Sign Out"></i>
+          <a href="../config/logout.php"><i class="fas fa-sign-out-alt mr-3" data-toggle="tooltip" title="Sign Out"></a></i>
         </h5>
       </div>
     </div>

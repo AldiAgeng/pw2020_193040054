@@ -52,6 +52,9 @@
       width: 50px;
       height: 50px;
     }
+    .icon a{
+      color: white;
+    }
     </style>
 
 
@@ -68,8 +71,7 @@
   
       <div class="icon ml-auto">
         <h5>
-          <i class="fas fa-envelope mr-3" data-toggle="tooltip" title="Surat Masuk"></i>
-          <a href="../index.php"><i class="fas fa-sign-out-alt mr-3" data-toggle="tooltip" title="Sign Out"></i></a>
+          <a href="../config/logout.php"><i class="fas fa-sign-out-alt mr-3" data-toggle="tooltip" title="Sign Out"></a></i>
         </h5>
       </div>
     </div>
