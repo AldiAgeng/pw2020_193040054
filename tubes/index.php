@@ -20,10 +20,12 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
     integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
-
   <style>
+    .jika_scroll {
+		background: rgb(130, 14, 208);
+		}
     nav{
-      background-color: rgb(130, 14, 208) ;
+      background-color: transparent;
       height: 50px;
     }
     .navbar-brand {
@@ -33,6 +35,7 @@
     .nav-item .nav-link {
       text-shadow: 2px 2px black;
       transition: 0.7s;
+      color: rgb(130, 14, 208);
     }
 
     .nav-item .nav-link:hover{
@@ -104,12 +107,24 @@
     }
   </style>
 
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+
+  <script type="text/javascript">
+    $(window).on("scroll", function () {
+      if ($(window).scrollTop() > 100) {
+        $(".navbar").addClass("jika_scroll");
+      } else {
+        $(".navbar").removeClass("jika_scroll");
+      }
+    });
+  </script>
+
   <title>Hello, world!</title>
 </head>
 
 <body>
 
-  <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="nav">
+  <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id='nav'>
     <div class="container">
       <a class="navbar-brand text-white" href="#">HappyMusical</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
@@ -135,7 +150,6 @@
     </div>
   </nav>
 
-
   <div class="jumbotron text-center">
     <div class="container">
       <h1 class="display-4 text-white">NIKMATI PEMINJAMAN TANPA RIBET</h1>
@@ -152,14 +166,13 @@
       <div class="row">
         <?php foreach ($alat_musik as $am) : ?>
         <div class="col-md">
-          <div class="card border-info">
+          <div class="card border-dark" style="width: 18rem;">
             <img class="card-img-top" src="assets/image/upload/<?= $am['gambar'] ?>" alt="Card image cap">
             <div class="card-body">
               <h5 class="card-title"><?= $am['nama_alat_musik'] ?></h5>
-              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
-                content.
+              <p class="card-text">Harga : <?= $am['harga'] ?>
               </p>
-              <a href="#" class="btn btn-primary">Go somewhere</a>
+              <a href="#" class="btn btn-dark" style="background-color: rgb(130, 14, 208);">Details</a>
             </div>
           </div>
       </div>
@@ -200,19 +213,15 @@
   </footer>
   
   <div class="copyright text-center text-white font-weight-bold p-2">
-    <p>AldiAgeng Copyright &#169; 2020 </p>
+    <p style="font-weight: 200; padding-top:20px;">AldiAgeng Copyright &#169; 2020 </p>
   </div>
+
 
   <!-- Optional JavaScript -->
   <!-- jQuery first, then Popper.js, then Bootstrap JS -->
   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
     integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous">
   </script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous">
-  </script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
-  </script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 </body>
 </html>
