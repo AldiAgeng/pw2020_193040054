@@ -47,6 +47,7 @@
 
     .jumbotron {
       background-image: url("assets/image/1344.jpg");
+      background-attachment: fixed;
       -webkit-filter: brightness(90%);
       background-size: cover;
       height: 860px;
@@ -54,7 +55,7 @@
     }
 
     .jumbotron .display-4 {
-      margin-top: 240px;
+      margin-top: 290px;
       font-weight: bold;
       text-shadow: 5px 5px rgb(130, 14, 208);
     }
@@ -121,7 +122,7 @@
   <script type="text/javascript">
   // Scroll navbar
     $(window).on("scroll", function () {
-      if ($(window).scrollTop() > 100) {
+      if ($(window).scrollTop() > 650) {
         $(".navbar").addClass("jika_scroll");
       } else {
         $(".navbar").removeClass("jika_scroll");
