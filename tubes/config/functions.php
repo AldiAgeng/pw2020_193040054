@@ -120,4 +120,36 @@
     
   }
 
+  function registrasi($data){
+    $conn = koneksi();
+    $nrp = htmlspecialchars($data['nrp']);
+    $nama = htmlspecialchars($data['nama']);
+    $jurusan = htmlspecialchars($data['jurusan']);
+    $username = strtolower(stripcslashes($data['username']));
+    $password = mysqli_real_escape_string($conn, $data['password']);
+    $level = 'mahasiswa';
+
+    //mencegah username sama
+    $result = mysqli_query($conn, "SELECT username,nrp FROM mahasiswa WHERE username = '$username' OR nrp = '$nrp'");
+    if(mysqli_fetch_assoc($result)){
+      echo "<script>
+        alert('Username & NRP sudah digunakan');
+      </script>";
+      return false;
+    }
+
+    $password = password_hash($password, PASSWORD_DEFAULT);
+
+    //menambahkan mahasiswa baru
+    $query_tambah = "INSERT INTO mahasiswa VALUES
+    ('',
+    '$nrp',
+    '$nama',
+    '$jurusan',
+    '$username',
+    '$password',
+    '$level')";
+    mysqli_query($conn, $query_tambah);
+    return mysqli_affected_rows($conn);
+  }
 ?>

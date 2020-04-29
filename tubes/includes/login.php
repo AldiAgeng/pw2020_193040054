@@ -14,6 +14,7 @@ require '../config/functions.php';
     $password = $_POST['password'];
     $cek_admin = mysqli_query(koneksi(), "SELECT * FROM admin WHERE username = '$username'");
     $cek_mahasiswa = mysqli_query(koneksi(), "SELECT * FROM mahasiswa WHERE username = '$username'");
+
     //cocokan USERNAME dan PASSWORD
     if(mysqli_num_rows($cek_admin) > 0){
       $row = mysqli_fetch_assoc($cek_admin);
@@ -32,25 +33,20 @@ require '../config/functions.php';
     
     if(mysqli_num_rows($cek_mahasiswa) > 0){
       $row = mysqli_fetch_assoc($cek_mahasiswa);
-      if($password == $row['password']){
+      if(password_verify($password,$row['password'])){
         $_SESSION['username'] = $_POST['username'];
-        $_SESSION['hash'] = $row['id_mahasiswa'];
+        $_SESSION['hash'] = hash('sha256', $row['id_mahasiswa'], false);
         $_SESSION['level'] = 'mahasiswa';
-        if($_SESSION['status_akun'] == 'Tidak Aktif'){
-          $error1 = true;
-          die;
-        }
-      }   
-      if($row['id_mahasiswa'] == $_SESSION['hash']){
+      if(hash('sha256', $row['id_mahasiswa']) == $_SESSION['hash']){
         header("Location: ../admin/alat_musik.php");
         die;
       }
-      
       header("Location: ../index.php");
       die;
     }
-$error = true;
   }
+  $error = true;
+}
 ?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
@@ -206,7 +202,7 @@ $error = true;
     <input type="submit" name="submit" class="logbtn" value="Login">
 
     <div class="bottom-text">
-      Don't have account? <a href="#">Sign up</a>
+      Don't have account? <a href="registrasi.php">Sign up</a>
     </div>
 
   </form>
