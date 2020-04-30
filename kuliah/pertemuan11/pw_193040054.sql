@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 22, 2020 at 03:45 PM
+-- Generation Time: Apr 30, 2020 at 04:32 AM
 -- Server version: 10.4.6-MariaDB
 -- PHP Version: 7.3.9
 
@@ -77,7 +77,6 @@ INSERT INTO `mahasiswa` (`id`, `nrp`, `nama`, `email`, `jurusan`, `gambar`) VALU
 (1, '193040054', 'Aldi Ageng Tri Seftian', 'aldiageng48@gmail.com', 'Teknik Informatika', 'aldi.jpg'),
 (2, '193040044', 'Rayhan', 'rayhan@gmail.com', 'Teknik Informatika', 'rayhan.jpg'),
 (3, '193040041', 'Viqri', 'viqri@gmail.com', 'Teknik Informatika', 'viqri.jpg'),
-(4, '193040051', 'Usep', 'usep@gmail.com', 'Teknik Informatika', 'usep.jpg'),
 (5, '193040045', 'Dian', 'dian@gmail.com', 'Teknik Informatika', 'dian.jpg'),
 (6, '193040046', 'Aji', 'aji@gmail.com', 'Teknik Informatika', 'aji.jpg'),
 (7, '193040057', 'Rio', 'rio@gmail.com', 'Teknik Informatika', 'rio.jpg'),
@@ -116,7 +115,7 @@ ALTER TABLE `alat_musik`
 -- AUTO_INCREMENT for table `mahasiswa`
 --
 ALTER TABLE `mahasiswa`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
