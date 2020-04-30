@@ -1,6 +1,10 @@
 <?php
 require 'functions.php';
 $mahasiswa = query("SELECT * FROM mahasiswa");
+
+if(isset($_POST['cari'])){
+  $mahasiswa = cari($_POST['keyword']);
+}
 ?>
 <!doctype html>
 <html lang="en">
@@ -63,7 +67,18 @@ $mahasiswa = query("SELECT * FROM mahasiswa");
     <div class="col">
       <a href="tambah.php" type="button" class="btn btn-danger" data-toggle="tooltip" data-placement="bottom" title="Tambah Data"><i class="fas fa-plus-circle"></i> Tambah Mahasiswa</a>
     </div>
+    <div class="col" style="margin-left:370px;">
+      <form class="form-inline" action="" method="post">
+        <div class="form-group mx-sm-3 mb-2">
+          <input type="text" class="form-control" placeholder="Masukan Pencarian..." autocomplete="off" name="keyword" autofocus>
+        </div>
+        <button type="submit" class="btn btn-dark mb-2 mr-3" name="cari">Cari</button>
+        <button type="submit" class="btn btn-dark mb-2" name="refresh">Refresh</button>
+      </form>
+    </div>
   </div>
+
+    
 
 
   <table class="table mt-5">
@@ -76,6 +91,11 @@ $mahasiswa = query("SELECT * FROM mahasiswa");
     </tr>
   </thead>
   <tbody>
+    <?php if(empty($mahasiswa)) : ?>
+    <tr>
+      <td colspan="4" class="text-center"><h5>Data Mahasiswa Tidak Ditemukan</h5></td>
+    </tr>
+    <?php endif ?>
     <?php $i=1 ?>
     <?php foreach($mahasiswa as $m) :  ?>
     <tr class="text-center">
