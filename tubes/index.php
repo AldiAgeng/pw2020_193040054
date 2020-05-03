@@ -122,7 +122,7 @@
   <script type="text/javascript">
   // Scroll navbar
     $(window).on("scroll", function () {
-      if ($(window).scrollTop() > 650) {
+      if ($(window).scrollTop() > 450) {
         $(".navbar").addClass("jika_scroll");
       } else {
         $(".navbar").removeClass("jika_scroll");

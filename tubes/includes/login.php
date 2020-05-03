@@ -1,13 +1,18 @@
 <?php 
 session_start();
 require '../config/functions.php';
-
-//cek apakah admin sudah melakukan login jika sudah direct ke halaman dashoard admin
-  if(isset($_SESSION['username'])){
+//cek apakah yg tadi login admin atau mahasiswa
+if(isset($_SESSION['username']) AND $_SESSION['level'] == 'admin'){
+  //cek apakah admin sudah melakukan login jika sudah direct ke halaman dashoard admin
     header("Location: ../admin/dashboard.php");
     exit;
+  }else{
+  //cek apakah mahasiswa sudah melakukan login jika sudah direct ke halaman mahasiswa_riwayat
+  if(isset($_SESSION['username'])){
+    header("Location: mahasiswa_riwayat.php");
+    exit;
   }
-
+}
   //Login
   if(isset($_POST['submit'])){
     $username = $_POST['username'];
@@ -30,7 +35,6 @@ require '../config/functions.php';
       header("Location: ../index.php");
       die;
     }
-    
     if(mysqli_num_rows($cek_mahasiswa) > 0){
       $row = mysqli_fetch_assoc($cek_mahasiswa);
       if(password_verify($password,$row['password'])){
@@ -38,7 +42,7 @@ require '../config/functions.php';
         $_SESSION['hash'] = hash('sha256', $row['id_mahasiswa'], false);
         $_SESSION['level'] = 'mahasiswa';
       if(hash('sha256', $row['id_mahasiswa']) == $_SESSION['hash']){
-        header("Location: ../admin/alat_musik.php");
+        header("Location: mahasiswa_riwayat.php");
         die;
       }
       header("Location: ../index.php");
