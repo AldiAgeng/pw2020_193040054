@@ -27,23 +27,22 @@
     <!-- FONTAWESOWE -->
     <link rel="stylesheet" type="text/css" href="../assets/css/fontawesome-free/css/all.min.css">
 
+    <style>
+    nav{
+      background: rgb(130, 14, 208);
+    }
+    </style>
 
     <title>Hello, world!</title>
   </head>
   <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-info fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
     <div class="container">
     <a class="navbar-brand" href="#">Selamat Datang Admin</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
   
-      <div class="icon ml-auto">
-        <h5>
-          <i class="fas fa-envelope mr-3" data-toggle="tooltip" title="Surat Masuk"></i>
-          <i class="fas fa-sign-out-alt mr-3" data-toggle="tooltip" title="Sign Out"></i>
-        </h5>
-      </div>
     </div>
     </div>
   </nav>

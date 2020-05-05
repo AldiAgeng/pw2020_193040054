@@ -1,7 +1,11 @@
 <?php
   require '../config/functions.php';
   $jumlah_alat_musik = mysqli_query(koneksi(),"SELECT * FROM alat_musik");
-  $data = mysqli_num_rows($jumlah_alat_musik);
+  $jumlah_mahasiswa = mysqli_query(koneksi(), "SELECT * FROM mahasiswa");
+  $jumlah_peminjaman = mysqli_query(koneksi(), "SELECT * FROM peminjaman");
+  $data_musik = mysqli_num_rows($jumlah_alat_musik);
+  $data_mahasiswa = mysqli_num_rows($jumlah_mahasiswa);
+  $data_peminjaman = mysqli_num_rows($jumlah_peminjaman);
 ?>
 <!doctype html>
 <html lang="en">
@@ -21,8 +25,11 @@
 
     <style>
     .nav-link:hover {
-  background-color: gray;
-  }
+    background-color: gray;
+    }
+    nav{
+      background: rgb(130, 14, 208);
+    }
     .card-body-icon{
       position: absolute;
       z-index: 0;
@@ -41,7 +48,7 @@
   </head>
   <body>
     
-  <nav class="navbar navbar-expand-lg navbar-dark bg-info fixed-top">
+  <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
     <div class="container">
     <a class="navbar-brand" href="#">Selamat Datang Admin</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -71,13 +78,13 @@
           <hr class="bg-secondary">
         </li>
         <li class="nav-item">
-          <a class="nav-link text-white" href="#">
+          <a class="nav-link text-white" href="peminjaman.php">
             <i class="fas fa-book-open mr-2"></i> Daftar Peminjaman</a>
           <hr class="bg-secondary">
         </li>
         <li class="nav-item">
           <a class="nav-link text-white" href="#">
-            <i class="fas fa-users mr-2"></i> Daftar User</a>
+            <i class="fas fa-users mr-2"></i> Daftar Mahasiswa</a>
           <hr class="bg-secondary">
         </li>
         <li class="nav-item">
@@ -95,13 +102,13 @@
 
       <div class="row text-white">
         
-        <div class="card bg-dark ml-5" style="width: 18rem;">
+        <div class="card bg-danger ml-5" style="width: 18rem;">
           <div class="card-body">
             <div class="card-body-icon">
               <i class="fas fa-music mr-2"></i>
             </div>
             <h5 class="card-title">JUMLAH ALAT MUSIK : </h5>
-            <div class="display-4"><b><?= $data ?></b></div>
+            <div class="display-4"><b><?= $data_musik ?></b></div>
             <a href="alat_musik.php"><p class="card-text text-white">Lihat Detail >>></p></a>
           </div>
         </div>
@@ -112,8 +119,8 @@
               <i class="fas fa-book-open mr-2"></i>
             </div>
             <h5 class="card-title">JUMLAH PEMINJAMAN : </h5>
-            <div class="display-4"><b>-</b></div>
-            <a href=""><p class="card-text text-white">Lihat Detail >>></p></a>
+            <div class="display-4"><b><?= $data_peminjaman ?></b></div>
+            <a href="peminjaman.php"><p class="card-text text-white">Lihat Detail >>></p></a>
           </div>
         </div>
 
@@ -122,8 +129,8 @@
             <div class="card-body-icon">
               <i class="fas fa-users mr-2"></i>
             </div>
-            <h5 class="card-title">JUMLAH USER : </h5>
-            <div class="display-4"><b>-</b></div>
+            <h5 class="card-title">JUMLAH MAHASISWA : </h5>
+            <div class="display-4"><b><?= $data_mahasiswa ?></b></div>
             <a href=""><p class="card-text text-white">Lihat Detail >>></p></a>
           </div>
         </div>

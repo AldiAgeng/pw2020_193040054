@@ -4,6 +4,21 @@ session_start();
 
   $username = $_SESSION['username'];
   $mahasiswa = query("SELECT * FROM mahasiswa WHERE username = '$username' ")[0];
+
+  $alat_musik = query("SELECT * FROM alat_musik");
+
+  if(isset($_POST['submit'])){
+    if(tambah_peminjaman_mahasiswa($_POST) > 0){
+      echo "<script>
+        alert('Data Berhasil Ditambahkan!');
+        document.location.href = 'mahasiswa_riwayat.php';
+      </script>";
+    }else{
+      echo "<script>
+        alert('Data Gagal Ditambahkan!');
+      </script>";
+    }
+  }
 ?>
 <!doctype html>
 <html lang="en">
@@ -23,8 +38,11 @@ session_start();
 
     <style>
     .nav-link:hover {
-  background-color: gray;
-  }
+      background-color: gray;
+    }
+    nav{
+      background: rgb(130, 14, 208);
+    }
     .card-body-icon{
       position: absolute;
       z-index: 0;
@@ -43,7 +61,7 @@ session_start();
   </head>
   <body>
     
-  <nav class="navbar navbar-expand-lg navbar-dark bg-info fixed-top">
+  <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
     <div class="container">
     <a class="navbar-brand" href="#">Selamat Datang <?= $mahasiswa['nama'] ?></a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -81,8 +99,39 @@ session_start();
     <div class="col-md-10 p-5 pt-2">
       <h3><i class="fas fa-music mr-2"> Pinjam Alat Musik</i></h3><hr>
 
+    
       <div class="row">
-        
+        <div class="col">
+          <form action="" method="post">
+            <input type="hidden" name="id_mahasiswa" value="<?= $mahasiswa['id_mahasiswa'] ?>">
+            <div class="form-group">
+              <label for="tgl_pinjam">Tanggal Pinjam</label>
+              <input type="date" name="tgl_pinjam" class="form-control" id="tgl_pinjam" required>
+            </div>
+            <div class="form-group">
+              <label for="tgl_kembali">Tanggal Kembali</label>
+              <input type="date" name="tgl_kembali" class="form-control" id="tgl_kembali" required>
+            </div>
+            <div class="form-group">
+              <label for="jam_pinjam">Jam Pinjam</label>
+              <input type="time" name="jam_pinjam" class="form-control" id="jam_pinjam" required>
+            </div>
+            <div class="form-group">
+              <label for="jam_kembali">Jam Kembali</label>
+              <input type="time" name="jam_kembali" class="form-control" id="jam_kembali" required>
+            </div>
+            <div class="form-group">
+              <label for="nama_alat_musik">Alat Musik</label>
+              <select name="nama_alat_musik" class="custom-select">
+                <option selected>~~ Pilih Alat Musik ~~</option>
+                <?php foreach($alat_musik as $am) : ?>
+                <option value="<?= $am['nama_alat_musik'] ?>"> <?= $am['nama_alat_musik'] ?> </option>
+                <?php endforeach ?>
+              </select>
+            </div>
+            <button type="submit" name="submit" class="btn btn-dark">Pinjam</button>
+          </form>
+        </div>
         </div>
       </div>
 

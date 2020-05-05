@@ -1,7 +1,7 @@
 <?php
   
-  require 'config/functions.php';
-  $alat_musik = query("SELECT * FROM alat_musik ORDER BY id ASC LIMIT 3");
+  require '../config/functions.php';
+  $alat_musik = query("SELECT * FROM alat_musik");
 
 ?>
 <!doctype html>
@@ -16,18 +16,15 @@
   <link rel="stylesheet" type="css" href="assets/css/index.css"> -->
 
       <!-- FONTAWESOWE -->
-    <link rel="stylesheet" type="text/css" href="assets/css/fontawesome-free/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="../assets/css/fontawesome-free/css/all.min.css">
 
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
     integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
   <style>
-    .jika_scroll {
-		background: rgb(130, 14, 208);
-		}
     nav{
-      background-color: transparent;
+      background: rgb(130, 14, 208);
       height: 50px;
     }
     .navbar-brand {
@@ -115,20 +112,6 @@
     }
   </style>
 
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-  <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-		<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-  
-  <script type="text/javascript">
-  // Scroll navbar
-    $(window).on("scroll", function () {
-      if ($(window).scrollTop() > 450) {
-        $(".navbar").addClass("jika_scroll");
-      } else {
-        $(".navbar").removeClass("jika_scroll");
-      }
-    });
-      </script>
 
   <title>Hello, world!</title>
 </head>
@@ -145,13 +128,13 @@
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ml-auto">
           <li class="nav-item active">
-            <a class="nav-link text-white font-weight-bold" href="index.php">Home</a>
+            <a class="nav-link text-white " href="../index.php">Home</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link text-white" href="includes/produk.php">Produk</a>
+            <a class="nav-link text-white font-weight-bold" href="produk.php">Produk</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link text-white" href="includes/login.php">Login</a>
+            <a class="nav-link text-white" href="../includes/login.php">Login</a>
           </li>
         </ul>
       </div>
@@ -159,24 +142,15 @@
   </nav>
 
 
-  <div class="jumbotron text-center">
+  <section class="home mt-5 pt-5" id="home">
     <div class="container">
-      <h1 class="display-4 text-white">ENJOY YOU LOAN</h1>
-      <hr class="my-4">
-      <p class="text-white">Musical Instrument Loans for Pasundan University Students</p>
-      <a href="includes/login.php" class="btn btn-lg text-white"><i class="fas fa-play"></i> Let's Start</a>
-    </div>
-  </div>
-
-  <section class="home mt-4" id="home">
-    <div class="container">
-      <h1 class="text-center">Popular Musical Instrument</h1>
+      <h1 class="text-center">Musical Instrument</h1>
       <hr class="my-4">
       <div class="row">
         <?php foreach ($alat_musik as $am) : ?>
         <div class="col-md">
-          <div class="card" style="width: 16rem;">
-            <img class="card-img-top" src="assets/image/upload/<?= $am['gambar'] ?>" alt="Card image cap">
+          <div class="card mb-5 mt-5" style="width: 16rem;">
+            <img class="card-img-top" src="../assets/image/upload/<?= $am['gambar'] ?>" alt="Card image cap">
             <div class="card-body">
               <h5 class="card-title"><?= $am['nama_alat_musik'] ?></h5>
               <a href="#" class="view_data btn btn-dark" style="background-color: rgb(130, 14, 208);">Details</a>
@@ -185,10 +159,7 @@
       </div>
       <?php endforeach ?>
     </div>
-    <div class="lebih_banyak text-center mt-5">
-      <a href="includes/produk.php">See More Product</a>
-      <hr class="my-4">
-    </div>
+
     </div>
   </section>
 

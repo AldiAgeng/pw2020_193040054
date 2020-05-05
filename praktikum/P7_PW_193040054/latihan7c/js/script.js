@@ -11,7 +11,7 @@ keyword.addEventListener('keyup', function () {
       container.innerHTML = ajax.responseText;
     }
   }
-  ajax.open('GET', 'ajax/alat_musik.php?keyword=' + keyword.value, true);
+  ajax.open('GET', '../../admin/ajax/alat_musik.php?keyword=' + keyword.value, true);
   ajax.send();
 
 });

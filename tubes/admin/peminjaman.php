@@ -1,19 +1,20 @@
 <?php
   require '../config/functions.php';
 
-  $alat_musik = query("SELECT * FROM alat_musik");
+  $query = "SELECT 
+                  peminjaman.tgl_pinjam,
+                  peminjaman.tgl_kembali,
+                  peminjaman.jam_pinjam,
+                  peminjaman.jam_kembali,
+                  mahasiswa.id_mahasiswa,
+                  mahasiswa.nama,
+                  peminjaman.id_alat_musik,
+                  alat_musik.nama_alat_musik
+                  FROM peminjaman,alat_musik,mahasiswa
+                  WHERE peminjaman.id_alat_musik = alat_musik.id
+                  AND peminjaman.id_mahasiswa = mahasiswa.id_mahasiswa";
 
-  if(isset($_POST['cari'])){
-    $keyword = $_POST['keyword'];
-    $alat_musik = query("SELECT * FROM alat_musik WHERE 
-                        nama_alat_musik LIKE '%$keyword%' OR
-                        merk LIKE '%$keyword%' OR
-                        harga LIKE '%$keyword%' OR 
-                        cara_dimainkan LIKE '%$keyword%' OR
-                        jumlah_alat LIKE '%$keyword%' ");
-  }else{
-    $alat_musik = query("SELECT * FROM alat_musik");
-  }
+  $peminjaman = query($query);
 
 ?>
 <!doctype html>
@@ -69,7 +70,6 @@
     <!-- <script src="../asset/js/jquery-3.2.1.min.js"></script> -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
     <script src="../assets/js/script.js"></script>
-    
   </head>
   <body>
     
@@ -103,7 +103,7 @@
           <hr class="bg-secondary">
         </li>
         <li class="nav-item">
-          <a class="nav-link text-white" href="peminjaman.php">
+          <a class="nav-link text-white" href="#">
             <i class="fas fa-book-open mr-2"></i> Daftar Peminjaman</a>
           <hr class="bg-secondary">
         </li>
@@ -124,41 +124,43 @@
     </div>
 
     <div class="col-md-10 p-5 pt-2">
-      <h3><i class="fas fa-music mr-2"></i> DAFTAR ALAT MUSIK</a></h3><hr>
+      <h3><i class="fas fa-book-open mr-2"></i> DAFTAR PEMINJAMAN</a></h3><hr>
 
       <div class="row">
         <div class="col">
-          <a href="tambah_alat_musik.php" type="button" class="btn btn-dark" data-toggle="tooltip" data-placement="bottom" title="Tambah Data"><i class="fas fa-plus-circle"></i> Tambah Alat Musik</a>
+          <a href="tambah_alat_musik.php" type="button" class="btn btn-dark" data-toggle="tooltip" data-placement="bottom" title="Tambah Data"><i class="fas fa-plus-circle"></i> Tambah Peminjaman</a>
         </div>
 
         <div class="col" style="margin-left:670px;">
           <form class="form-inline" action="" method="post">
             <div class="form-group mx-sm-3 mb-2">
-              <input type="text" class="form-control" placeholder="Cari" name="keyword" autocomplete="off" id="keyword-musik" autofocus>
+              <input type="text" class="form-control" placeholder="Cari" name="keyword" autocomplete="off" id="keyword-peminjaman" autofocus>
             </div>
-            <button type="submit" class="btn btn-dark mb-2 mr-3" name="cari" id="tombol-cari-musik">Cari</button>
+            <button type="submit" class="btn btn-dark mb-2 mr-3" name="cari" id="tombol-cari-peminjaman">Cari</button>
             <img src="../assets/image/Ring-Loading.gif" class="loader">
           </form>
         </div>
       </div>
 
 
-      <div id="tabel-musik">
+      <div id="tabel-peminjaman">
       <table class="table text-center mt-3">
         <thead class="thead-dark table-bordered">
           <tr>
             <th scope="col">#</th>
-            <th scope="col">GAMBAR</th>
-            <th scope="col">NAMA ALAT MUSIK</th>
-            <th scope="col">MERK</th>
-            <th scope="col">HARGA</th>
-            <th scope="col">CARA DIMAINKAN</th>
-            <th scope="col">JUMLAH ALAT</th>
+            <th scope="col">Tanggal Pinjam</th>
+            <th scope="col">Tanggal Kembali</th>
+            <th scope="col">Jam Pinjam</th>
+            <th scope="col">Jam Kembali</th>
+            <th scope="col">Id Mahasiswa</th>
+            <th scope="col">Nama Mahasiswa</th>
+            <th scope="col">Id Alat Musik</th>
+            <th scope="col">Nama Alat Musik</th>
             <th colspan="3" scope="col">AKSI</th>
           </tr>
         </thead>
         <tbody>
-          <?php if (empty($alat_musik)) : ?>
+          <?php if (empty($peminjaman)) : ?>
           <tr>
             <td colspan="9">
               <h3>Data Tidak Ditemukan</h3>
@@ -166,15 +168,17 @@
           </tr>
           <?php else : ?>
           <?php $i =1; ?>
-          <?php foreach ($alat_musik as $am) : ?>
+          <?php foreach ($peminjaman as $pm) : ?>
           <tr>
             <th scope="row"><?= $i ?></th>
-            <td><img src="../assets/image/upload/<?= $am["gambar"] ?>"></td>
-            <td><?= $am["nama_alat_musik"] ?></td>
-            <td><?= $am["merk"] ?></td>
-            <td><?= $am["harga"] ?></td>
-            <td><?= $am["cara_dimainkan"] ?></td>
-            <td><?= $am["jumlah_alat"] ?></td>
+            <td><?= $pm['tgl_pinjam'] ?></td>
+            <td><?= $pm['tgl_kembali'] ?></td>
+            <td><?= $pm['jam_pinjam'] ?></td>
+            <td><?= $pm['jam_kembali'] ?></td>
+            <td><?= $pm['id_mahasiswa'] ?></td>
+            <td><?= $pm['nama'] ?></td>
+            <td><?= $pm['id_alat_musik'] ?></td>
+            <td><?= $pm['nama_alat_musik'] ?></td>
             <td><a href="ubah_alat_musik.php?id=<?= $am['id'] ?>" type="button" class="btn btn-info" data-toggle="tooltip" data-placement="bottom" title="Edit Data"><i class="fas fa-edit"></i> Edit</a></td>
             <td><a href="hapus_alat_musik.php?id=<?= $am['id'] ?>" onclick="return confirm('Hapus Data?')" type="button" class="btn btn-danger" data-toggle="tooltip" data-placement="bottom" title="Hapus Data"><i class="fas fa-trash-alt"></i> Hapus</a></td>
           </tr>

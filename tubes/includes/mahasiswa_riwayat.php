@@ -36,8 +36,11 @@ session_start();
 
     <style>
     .nav-link:hover {
-  background-color: gray;
-  }
+    background-color: gray;
+    }
+    nav{
+      background: rgb(130, 14, 208);
+    }
     .card-body-icon{
       position: absolute;
       z-index: 0;
@@ -56,7 +59,7 @@ session_start();
   </head>
   <body>
     
-  <nav class="navbar navbar-expand-lg navbar-dark bg-info fixed-top">
+  <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
     <div class="container">
     <a class="navbar-brand" href="#">Selamat Datang <?= $mahasiswa['nama'] ?></a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -76,7 +79,7 @@ session_start();
     <div class="col-md-2 bg-dark mt-2 pr-3 pt-4">
       <ul class="nav flex-column ml-3 mb-5">
         <li class="nav-item">
-          <a class="nav-link active text-white" href="dashboard.php">
+          <a class="nav-link active text-white" href="mahasiswa_riwayat.php">
             <i class="fas fa-history"></i> Riwayat Peminjaman</a>
           <hr class="bg-secondary">
         </li>
@@ -121,8 +124,8 @@ session_start();
                 <td><?= $rwy['nama_alat_musik'] ?></td>
               </tr>
             <?php
-            endforeach;
             $i++;
+            endforeach;
             ?>
             </tbody>
           </table>

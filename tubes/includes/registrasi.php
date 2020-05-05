@@ -13,48 +13,185 @@
   }
 }
 ?>
-<!doctype html>
-<html lang="en">
-  <head>
-    <!-- Required meta tags --> 
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
 
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<head>
+  <meta charset="utf-8">
+  <title></title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" charset="utf-8"></script>
 
-    <title>Hello, world!</title>
-  </head>
-  <body>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      text-decoration: none;
+      font-family: montserrat;
+      box-sizing: border-box;
+    }
 
-  <!-- FORM -->
-  <div class="container">
-  <form action="" method="post">
-    <div class="form-group mt-5">
-      <input type="text" class="form-control" placeholder="Masukan NRP" name="nrp">
+    body {
+      min-height: 100vh;
+      background-image: linear-gradient(-90deg,  gray,rgb(130, 14, 208));
+    }
+
+    .login-form {
+      width: 360px;
+      background: #f1f1f1;
+      height: 640px;
+      padding: 80px 40px;
+      border-radius: 10px;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    .login-form h1 {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+
+    .txtb {
+      border-bottom: 2px solid #adadad;
+      position: relative;
+      margin: 30px 0;
+    }
+
+    .txtb input {
+      font-size: 15px;
+      color: #333;
+      border: none;
+      width: 100%;
+      outline: none;
+      background: none;
+      padding: 0 5px;
+      height: 40px;
+    }
+
+    .txtb span::before {
+      content: attr(data-placeholder);
+      position: absolute;
+      top: 50%;
+      left: 5px;
+      color: #adadad;
+      transform: translateY(-50%);
+      z-index: -1;
+      transition: .5s;
+    }
+
+    .txtb span::after {
+      content: '';
+      position: absolute;
+      width: 0%;
+      height: 2px;
+      transition: .5s;
+    }
+
+    .focus+span::before {
+      top: -5px;
+    }
+
+    .focus+span::after {
+      width: 100%;
+    }
+
+    .logbtn {
+      display: block;
+      border-radius: 120px;
+      width: 100%;
+      height: 50px;
+      border: none;
+      background: linear-gradient(120deg, gray, rgb(130, 14, 208), gray);
+      background-size: 200%;
+      color: #fff;
+      outline: none;
+      cursor: pointer;
+      transition: .5s;
+    }
+
+    .logbtn:hover {
+      background-position: right;
+    }
+
+    .bottom-text {
+      margin-top: 60px;
+      text-align: center;
+      font-size: 13px;
+    }
+    .remember{
+      margin-bottom: 20px;
+    }
+    hr{
+      position: absolute;
+      top: 130px;
+      left : 70px;
+      border-color: rgb(130, 14, 208);
+      width: 220px;
+      border-width: 1px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <form action="" method="post" class="login-form">
+    <?php if(isset($error)) : 
+        echo "<script>
+              alert('Username atau Password salah');
+        </script>";
+    endif ?>
+    <?php if(isset($error1)) : 
+        echo "<script>
+              alert('Akun anda belum diaktifkan oleh Admin');
+        </script>";
+    endif ?>
+    <h1>Registrasi</h1>
+    <hr class="my-4">
+
+    <form action="" method="post">
+
+    <div class="txtb">
+      <input type="text" name="nrp">
+      <span data-placeholder="NRP"></span>
     </div>
-    <div class="form-group">
-      <input type="text" class="form-control" placeholder="Masukan Nama" name="nama">
+
+    <div class="txtb">
+      <input type="text" name="nama">
+      <span data-placeholder="Nama Lengkap"></span>
     </div>
-    <div class="form-group">
-      <input type="text" class="form-control" placeholder="Masukan Jurusan" name="jurusan">
+
+    <div class="txtb">
+      <input type="text" name="jurusan">
+      <span data-placeholder="Jurusan"></span>
     </div>
-    <div class="form-group">
-      <input type="text" class="form-control" placeholder="Masukan Username" name="username">
+
+    <div class="txtb">
+      <input type="text" name="username">
+      <span data-placeholder="Username"></span>
     </div>
-    <div class="form-group">
-      <input type="password" class="form-control" placeholder="Masukan Password" name="password">
+
+    <div class="txtb">
+      <input type="password" name="password">
+      <span data-placeholder="Password"></span>
     </div>
-    <button type="submit" class="btn btn-primary" name="register">Register</button>
+
+    <input type="submit" name="register" class="logbtn" value="REGISTER">
+
   </form>
-  </div>
+
+  <script type="text/javascript">
+    $(".txtb input").on("focus", function () {
+      $(this).addClass("focus");
+    });
+
+    $(".txtb input").on("blur", function () {
+      if ($(this).val() == "")
+        $(this).removeClass("focus");
+    });
+  </script>
 
 
+</body>
 
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-  </body>
 </html>

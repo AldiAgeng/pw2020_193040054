@@ -152,4 +152,26 @@
     mysqli_query($conn, $query_tambah);
     return mysqli_affected_rows($conn);
   }
+
+  // MAHASISWA PINJAM ALAT MUSIK
+  function tambah_peminjaman_mahasiswa($data){
+    $conn = koneksi();
+
+    $nama_alat_musik = $data['nama_alat_musik'];
+    $id_alat_musik = query("SELECT * FROM alat_musik WHERE nama_alat_musik = '$nama_alat_musik' ")[0];
+    $id_musik = $id_alat_musik['id'];
+
+    $id_mahasiswa = $data['id_mahasiswa']; 
+    $tgl_pinjam = htmlspecialchars($data['tgl_pinjam']);
+    $tgl_kembali = htmlspecialchars($data['tgl_kembali']);
+    $jam_pinjam = htmlspecialchars($data['jam_pinjam']);
+    $jam_kembali = htmlspecialchars($data['jam_kembali']);
+
+    $query =  "INSERT INTO peminjaman 
+              VALUES 
+              ('','$tgl_pinjam','$tgl_kembali','$jam_pinjam','$jam_kembali','$id_mahasiswa','$id_musik')";
+    
+    mysqli_query($conn,$query) or die (mysqli_error($conn));
+    return mysqli_affected_rows($conn);
+  }
 ?>
