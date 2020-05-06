@@ -10,7 +10,9 @@
             mahasiswa.nama,
             peminjaman.id_alat_musik,
             alat_musik.nama_alat_musik
-            FROM peminjaman NATURAL JOIN mahasiswa,alat_musik
+            FROM peminjaman 
+            INNER JOIN mahasiswa ON peminjaman.id_mahasiswa = mahasiswa.id_mahasiswa
+            INNER JOIN alat_musik ON peminjaman.id_alat_musik = alat_musik.id
             WHERE 
             peminjaman.tgl_pinjam LIKE '%$keyword%' OR
             peminjaman.tgl_kembali LIKE '%$keyword%' OR
@@ -19,7 +21,9 @@
             peminjaman.id_mahasiswa LIKE '%$keyword%' OR
             mahasiswa.nama LIKE '%$keyword%' OR
             peminjaman.id_alat_musik LIKE '%$keyword%' OR
-            alat_musik.nama_alat_musik LIKE '%$keyword%' GROUP BY tgl_pinjam");
+            alat_musik.nama_alat_musik LIKE '%$keyword%' 
+            GROUP BY peminjaman.id_peminjaman
+            ORDER BY peminjaman.id_peminjaman DESC");
   $peminjaman = query($query);
   ?>
 <table class="table text-center mt-3">

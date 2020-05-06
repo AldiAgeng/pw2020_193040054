@@ -12,7 +12,7 @@
                   alat_musik.nama_alat_musik
                   FROM peminjaman,alat_musik,mahasiswa
                   WHERE peminjaman.id_alat_musik = alat_musik.id
-                  AND peminjaman.id_mahasiswa = mahasiswa.id_mahasiswa";
+                  AND peminjaman.id_mahasiswa = mahasiswa.id_mahasiswa ORDER BY peminjaman.id_peminjaman DESC";
 
   $peminjaman = query($query);
 
@@ -128,7 +128,7 @@
 
       <div class="row">
         <div class="col">
-          <a href="tambah_alat_musik.php" type="button" class="btn btn-dark" data-toggle="tooltip" data-placement="bottom" title="Tambah Data"><i class="fas fa-plus-circle"></i> Tambah Peminjaman</a>
+          <a href="tambah_peminjaman.php" type="button" class="btn btn-dark" data-toggle="tooltip" data-placement="bottom" title="Tambah Data"><i class="fas fa-plus-circle"></i> Tambah Peminjaman</a>
         </div>
 
         <div class="col" style="margin-left:670px;">
