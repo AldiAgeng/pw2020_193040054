@@ -17,6 +17,7 @@
     return $rows;
   }
 
+  // ADMIN ALAT MUSIK
   function tambah($data){
     $conn = koneksi();
 
@@ -172,6 +173,31 @@
               ('','$tgl_pinjam','$tgl_kembali','$jam_pinjam','$jam_kembali','$id_mahasiswa','$id_musik')";
     
     mysqli_query($conn,$query) or die (mysqli_error($conn));
+    return mysqli_affected_rows($conn);
+  }
+
+  // ADMIN PEMINJAMAN
+  function tambah_peminjaman($data){
+    $conn = koneksi();
+
+    $tgl_pinjam = htmlspecialchars($data['tgl_pinjam']);
+    $tgl_kembali = htmlspecialchars($data['tgl_kembali']);
+    $jam_pinjam = htmlspecialchars($data['jam_pinjam']);
+    $jam_kembali = htmlspecialchars($data['jam_kembali']);
+    $id_mahasiswa = htmlspecialchars($data['id_mahasiswa']);
+    $id_alat_musik = htmlspecialchars($data['id_alat_musik']);
+    $query =  "INSERT INTO peminjaman
+              VALUES
+              ('','$tgl_pinjam','$tgl_kembali','$jam_pinjam','$jam_kembali','$id_mahasiswa','$id_alat_musik')";
+    mysqli_query($conn,$query) or die (mysqli_error($conn));
+    return mysqli_affected_rows($conn);
+  }
+
+  function hapus_peminjaman($id_peminjaman){
+    $conn = koneksi();
+
+    mysqli_query($conn, "DELETE FROM peminjaman WHERE id_peminjaman = $id_peminjaman") or die(mysqli_error($conn));
+
     return mysqli_affected_rows($conn);
   }
 ?>

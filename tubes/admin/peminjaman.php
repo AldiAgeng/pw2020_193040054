@@ -2,6 +2,7 @@
   require '../config/functions.php';
 
   $query = "SELECT 
+                  peminjaman.id_peminjaman,
                   peminjaman.tgl_pinjam,
                   peminjaman.tgl_kembali,
                   peminjaman.jam_pinjam,
@@ -179,8 +180,8 @@
             <td><?= $pm['nama'] ?></td>
             <td><?= $pm['id_alat_musik'] ?></td>
             <td><?= $pm['nama_alat_musik'] ?></td>
-            <td><a href="ubah_alat_musik.php?id=<?= $am['id'] ?>" type="button" class="btn btn-info" data-toggle="tooltip" data-placement="bottom" title="Edit Data"><i class="fas fa-edit"></i> Edit</a></td>
-            <td><a href="hapus_alat_musik.php?id=<?= $am['id'] ?>" onclick="return confirm('Hapus Data?')" type="button" class="btn btn-danger" data-toggle="tooltip" data-placement="bottom" title="Hapus Data"><i class="fas fa-trash-alt"></i> Hapus</a></td>
+            <td><a href="ubah_peminjaman.php?id=<?= $am['id_peminjaman'] ?>" type="button" class="btn btn-info" data-toggle="tooltip" data-placement="bottom" title="Edit Data"><i class="fas fa-edit"></i> Edit</a></td>
+            <td><a href="hapus_peminjaman.php?id_peminjaman=<?= $pm['id_peminjaman'] ?>" onclick="return confirm('Hapus Data?')" type="button" class="btn btn-danger" data-toggle="tooltip" data-placement="bottom" title="Hapus Data"><i class="fas fa-trash-alt"></i> Hapus</a></td>
           </tr>
           <?php $i++ ?>
           <?php endforeach ?>

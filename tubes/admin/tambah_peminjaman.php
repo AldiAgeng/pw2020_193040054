@@ -1,5 +1,9 @@
 <?php
   require '../config/functions.php';
+
+  $mahasiswa = query("SELECT * FROM mahasiswa");
+  $alat_musik = query("SELECT * FROM alat_musik");
+
   if(isset($_POST['tambah'])){
     if(tambah_peminjaman($_POST) > 0){
       echo "<script>
@@ -54,31 +58,39 @@
       
       <form action="" method="post" enctype="multipart/form-data">
         <div class="form-group">
-          <label for="nama_alat_musik">Nama Alat Musik</label>
-          <input type="text" name="nama_alat_musik" class="form-control" id="nama_alat_musik" placeholder="Nama Alat Musik" required>
+          <label for="tgl_pinjam">Tanggal Pinjam</label>
+          <input type="date" name="tgl_pinjam" class="form-control" id="tgl_pinjam" placeholder="Tanggal Pinjam" required>
         </div>
         <div class="form-group">
-          <label for="merk">Merk</label>
-          <input type="text" name="merk" class="form-control" id="merk" placeholder="Merk" required>
+          <label for="tgl_kembali">Tanggal Kembali</label>
+          <input type="date" name="tgl_kembali" class="form-control" id="tgl_kembali" placeholder="Tanggal Kembali" required>
         </div>
         <div class="form-group">
-          <label for="harga">Harga</label>
-          <input type="text" name="harga" class="form-control" id="harga" placeholder="Harga" required>
+          <label for="jam_pinjam">Jam Pinjam</label>
+          <input type="time" name="jam_pinjam" class="form-control" id="jam_pinjam" placeholder="Jam Pinjam" required>
         </div>
         <div class="form-group">
-          <label for="cara_dimainkan">Cara Dimainkan</label>
-          <input type="text" name="cara_dimainkan" class="form-control" id="cara_dimainkan" placeholder="Cara Dimainkan" required>
+          <label for="jam_kembali">Jam Kembali</label>
+          <input type="time" name="jam_kembali" class="form-control" id="jam_kembali" placeholder="Jam Kembali" required>
         </div>
         <div class="form-group">
-          <label for="jumlah_alat">Jumlah Alat</label>
-          <input type="text" name="jumlah_alat" class="form-control" id="jumlah_alat" placeholder="Jumlah Alat" required>
+          <label for="id_mahasiswa">Id Mahasiswa</label>
+          <select id="id_mahasiswa" name="id_mahasiswa" class="custom-select" required>
+            <?php foreach ($mahasiswa as $mhs) : ?>
+            <option value="<?= $mhs['id_mahasiswa'] ?>"><?= $mhs['id_mahasiswa'] ?></option>
+            <?php endforeach ?>
+          </select>
         </div>
         <div class="form-group">
-          <label for="gambar">Gambar</label>
-          <input type="file" name="gambar" class="form-control" id="gambar" placeholder="Gambar" required>
+          <label for="id_alat_musik">Id Alat Musik</label>
+          <select id="id_alat_musik" name="id_alat_musik" class="custom-select" required>
+            <?php foreach ($alat_musik as $am) : ?>
+            <option value="<?= $am['id'] ?>"><?= $am['id'] ?></option>
+            <?php endforeach ?>
+          </select>
         </div>
         <button type="submit" name="tambah" class="btn btn-info">Tambah</button>
-        <a href="alat_musik.php" type="submit" class="btn btn-info">Kembali</a>
+        <a href="peminjaman.php" type="submit" class="btn btn-info">Kembali</a>
       </form>
     
     </div>

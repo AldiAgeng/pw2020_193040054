@@ -123,7 +123,6 @@ session_start();
             <div class="form-group">
               <label for="nama_alat_musik">Alat Musik</label>
               <select name="nama_alat_musik" class="custom-select">
-                <option selected>~~ Pilih Alat Musik ~~</option>
                 <?php foreach($alat_musik as $am) : ?>
                 <option value="<?= $am['nama_alat_musik'] ?>"> <?= $am['nama_alat_musik'] ?> </option>
                 <?php endforeach ?>
