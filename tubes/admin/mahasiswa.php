@@ -101,7 +101,7 @@
           <hr class="bg-secondary">
         </li>
         <li class="nav-item">
-          <a class="nav-link text-white" href="mahasiswa.php">
+          <a class="nav-link text-white" href="alat_musik.php">
             <i class="fas fa-music mr-2"></i> Daftar Alat Musik</a>
           <hr class="bg-secondary">
         </li>
