@@ -83,7 +83,7 @@
           <hr class="bg-secondary">
         </li>
         <li class="nav-item">
-          <a class="nav-link text-white" href="#">
+          <a class="nav-link text-white" href="mahasiswa.php">
             <i class="fas fa-users mr-2"></i> Daftar Mahasiswa</a>
           <hr class="bg-secondary">
         </li>
@@ -131,7 +131,7 @@
             </div>
             <h5 class="card-title">JUMLAH MAHASISWA : </h5>
             <div class="display-4"><b><?= $data_mahasiswa ?></b></div>
-            <a href=""><p class="card-text text-white">Lihat Detail >>></p></a>
+            <a href="mahasiswa.php"><p class="card-text text-white">Lihat Detail >>></p></a>
           </div>
         </div>
 

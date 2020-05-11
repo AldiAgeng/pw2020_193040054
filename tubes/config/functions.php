@@ -200,4 +200,105 @@
 
     return mysqli_affected_rows($conn);
   }
+
+  function ubah_peminjaman($data){
+    $conn = koneksi();
+
+    $id_peminjaman = $data['id_peminjaman'];
+    $tgl_pinjam = htmlspecialchars($data['tgl_pinjam']);
+    $tgl_kembali = htmlspecialchars($data['tgl_kembali']);
+    $jam_pinjam = htmlspecialchars($data['jam_pinjam']);
+    $jam_kembali = htmlspecialchars($data['jam_kembali']);
+    $id_mahasiswa = htmlspecialchars($data['id_mahasiswa']);
+    $id_alat_musik = htmlspecialchars($data['id_alat_musik']);
+
+    $queryubah = "UPDATE peminjaman SET
+                tgl_pinjam = '$tgl_pinjam',
+                tgl_kembali = '$tgl_kembali',
+                jam_pinjam = '$jam_pinjam',
+                jam_kembali = '$jam_kembali',
+                id_mahasiswa = '$id_mahasiswa',
+                id_alat_musik = '$id_alat_musik'
+                WHERE id_peminjaman = '$id_peminjaman' ";
+    mysqli_query($conn,$queryubah) or die(mysqli_error($conn));
+    return mysqli_affected_rows($conn);
+    
+  }
+
+  // ADMIN MAHASISWA
+  function tambah_mahasiswa($data){
+    $conn = koneksi();
+
+    $nrp = htmlspecialchars($data['nrp']);
+    $nama = htmlspecialchars($data['nama']);
+    $jurusan = htmlspecialchars($data['jurusan']);
+    $username = strtolower(stripcslashes($data['username']));
+    $password = mysqli_real_escape_string($conn, $data['password']);
+    $level = 'mahasiswa';
+
+    $result = mysqli_query($conn, "SELECT username,nrp FROM mahasiswa WHERE username = '$username' OR nrp = '$nrp'");
+    if(mysqli_fetch_assoc($result)){
+      echo "<script>
+        alert('Username & NRP sudah digunakan');
+      </script>";
+      return false;
+    }
+
+    $password = password_hash($password, PASSWORD_DEFAULT);
+
+    //menambahkan mahasiswa baru
+    $query_tambah = "INSERT INTO mahasiswa VALUES
+    ('',
+    '$nrp',
+    '$nama',
+    '$jurusan',
+    '$username',
+    '$password',
+    '$level')";
+    mysqli_query($conn, $query_tambah) or die(mysqli_error($conn));
+    return mysqli_affected_rows($conn);
+  }
+
+  function hapus_mahasiswa($id_mahasiswa){
+    $conn = koneksi();
+
+    mysqli_query($conn, "DELETE FROM mahasiswa WHERE id_mahasiswa = $id_mahasiswa") or die(mysqli_error($conn));
+
+    return mysqli_affected_rows($conn);
+  }
+
+  function ubah_mahasiswa($data){
+    $conn = koneksi();
+
+    $id_mahasiswa = $data['id_mahasiswa'];
+    $nrp = htmlspecialchars($data['nrp']);
+    $nama = htmlspecialchars($data['nama']);
+    $jurusan = htmlspecialchars($data['jurusan']);
+    $username = strtolower(stripcslashes($data['username']));
+    $password = mysqli_real_escape_string($conn, $data['password']);
+    $level = 'mahasiswa';
+
+    // $result = mysqli_query($conn, "SELECT username,nrp FROM mahasiswa WHERE username = '$username' OR nrp = '$nrp'");
+    // if(mysqli_fetch_assoc($result)){
+    //   echo "<script>
+    //     alert('Username & NRP sudah digunakan');
+    //   </script>";
+    //   return false;
+    // }
+
+    $password = password_hash($password, PASSWORD_DEFAULT);
+
+    $sql = "UPDATE mahasiswa SET
+          nrp = '$nrp',
+          nama = '$nama',
+          jurusan = '$jurusan',
+          username = '$username',
+          password = '$password',
+          level = '$level'
+          WHERE id_mahasiswa = '$id_mahasiswa'";
+  
+  mysqli_query($conn,$sql) or die(mysqli_error($conn));
+
+  return mysqli_affected_rows($conn);
+  }
 ?>

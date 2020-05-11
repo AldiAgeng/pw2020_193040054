@@ -1,19 +1,19 @@
 <?php
   require '../config/functions.php';
 
-  $alat_musik = query("SELECT * FROM alat_musik");
+  $mahasiswa = query("SELECT * FROM mahasiswa");
 
-  if(isset($_POST['cari'])){
-    $keyword = $_POST['keyword'];
-    $alat_musik = query("SELECT * FROM alat_musik WHERE 
-                        nama_alat_musik LIKE '%$keyword%' OR
-                        merk LIKE '%$keyword%' OR
-                        harga LIKE '%$keyword%' OR 
-                        cara_dimainkan LIKE '%$keyword%' OR
-                        jumlah_alat LIKE '%$keyword%' ");
-  }else{
-    $alat_musik = query("SELECT * FROM alat_musik");
-  }
+  // if(isset($_POST['cari'])){
+  //   $keyword = $_POST['keyword'];
+  //   $mahasiswa = query("SELECT * FROM mahasiswa WHERE 
+  //                       nama_mahasiswa LIKE '%$keyword%' OR
+  //                       merk LIKE '%$keyword%' OR
+  //                       harga LIKE '%$keyword%' OR 
+  //                       cara_dimainkan LIKE '%$keyword%' OR
+  //                       jumlah_alat LIKE '%$keyword%' ");
+  // }else{
+  //   $mahasiswa = query("SELECT * FROM mahasiswa");
+  // }
 
 ?>
 <!doctype html>
@@ -68,7 +68,10 @@
     <title>Hello, world!</title>
     <!-- <script src="../asset/js/jquery-3.2.1.min.js"></script> -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-    <script src="../assets/js/script.js"></script>
+    <script>
+
+    </script>
+    <script src="../assets/js/script1.js"></script>
     
   </head>
   <body>
@@ -98,7 +101,7 @@
           <hr class="bg-secondary">
         </li>
         <li class="nav-item">
-          <a class="nav-link text-white" href="alat_musik.php">
+          <a class="nav-link text-white" href="mahasiswa.php">
             <i class="fas fa-music mr-2"></i> Daftar Alat Musik</a>
           <hr class="bg-secondary">
         </li>
@@ -124,41 +127,39 @@
     </div>
 
     <div class="col-md-10 p-5 pt-2">
-      <h3><i class="fas fa-music mr-2"></i> DAFTAR ALAT MUSIK</a></h3><hr>
+      <h3><i class="fas fa-users mr-2"></i> DAFTAR MAHASISWA</a></h3><hr>
 
       <div class="row">
         <div class="col">
-          <a href="tambah_alat_musik.php" type="button" class="btn btn-dark" data-toggle="tooltip" data-placement="bottom" title="Tambah Data"><i class="fas fa-plus-circle"></i> Tambah Alat Musik</a>
+          <a href="tambah_mahasiswa.php" type="button" class="btn btn-dark" data-toggle="tooltip" data-placement="bottom" title="Tambah Data"><i class="fas fa-plus-circle"></i> Tambah Mahasiswa</a>
         </div>
 
         <div class="col" style="margin-left:670px;">
           <form class="form-inline" action="" method="post">
             <div class="form-group mx-sm-3 mb-2">
-              <input type="text" class="form-control" placeholder="Cari" name="keyword" autocomplete="off" id="keyword-musik" autofocus>
+              <input type="text" class="form-control" placeholder="Cari" name="keyword" autocomplete="off" id="keyword-mahasiswa" autofocus>
             </div>
-            <button type="submit" class="btn btn-dark mb-2 mr-3" name="cari" id="tombol-cari-musik">Cari</button>
+            <button type="submit" class="btn btn-dark mb-2 mr-3" name="cari" id="tombol-cari-mahasiswa">Cari</button>
             <img src="../assets/image/Ring-Loading.gif" class="loader">
           </form>
         </div>
       </div>
 
 
-      <div id="tabel-musik">
+      <div id="tabel-mahasiswa">
       <table class="table text-center mt-3">
         <thead class="thead-dark table-bordered">
           <tr>
             <th scope="col">#</th>
-            <th scope="col">GAMBAR</th>
-            <th scope="col">NAMA ALAT MUSIK</th>
-            <th scope="col">MERK</th>
-            <th scope="col">HARGA</th>
-            <th scope="col">CARA DIMAINKAN</th>
-            <th scope="col">JUMLAH ALAT</th>
+            <th scope="col">NRP</th>
+            <th scope="col">NAMA MAHASISWA</th>
+            <th scope="col">JURUSAN</th>
+            <th scope="col">USERNAME</th>
             <th colspan="3" scope="col">AKSI</th>
           </tr>
         </thead>
         <tbody>
-          <?php if (empty($alat_musik)) : ?>
+          <?php if (empty($mahasiswa)) : ?>
           <tr>
             <td colspan="9">
               <h3>Data Tidak Ditemukan</h3>
@@ -166,17 +167,15 @@
           </tr>
           <?php else : ?>
           <?php $i =1; ?>
-          <?php foreach ($alat_musik as $am) : ?>
+          <?php foreach ($mahasiswa as $mhs) : ?>
           <tr>
             <th scope="row"><?= $i ?></th>
-            <td><img src="../assets/image/upload/<?= $am["gambar"] ?>"></td>
-            <td><?= $am["nama_alat_musik"] ?></td>
-            <td><?= $am["merk"] ?></td>
-            <td><?= $am["harga"] ?></td>
-            <td><?= $am["cara_dimainkan"] ?></td>
-            <td><?= $am["jumlah_alat"] ?></td>
-            <td><a href="ubah_alat_musik.php?id=<?= $am['id'] ?>" type="button" class="btn btn-info" data-toggle="tooltip" data-placement="bottom" title="Edit Data"><i class="fas fa-edit"></i> Edit</a></td>
-            <td><a href="hapus_alat_musik.php?id=<?= $am['id'] ?>" onclick="return confirm('Hapus Data?')" type="button" class="btn btn-danger" data-toggle="tooltip" data-placement="bottom" title="Hapus Data"><i class="fas fa-trash-alt"></i> Hapus</a></td>
+            <td><?= $mhs["nrp"] ?></td>
+            <td><?= $mhs["nama"] ?></td>
+            <td><?= $mhs["jurusan"] ?></td>
+            <td><?= $mhs["username"] ?></td>
+            <td><a href="ubah_mahasiswa.php?id_mahasiswa=<?= $mhs['id_mahasiswa'] ?>" type="button" class="btn btn-info" data-toggle="tooltip" data-placement="bottom" title="Edit Data"><i class="fas fa-edit"></i> Edit</a></td>
+            <td><a href="hapus_mahasiswa.php?id_mahasiswa=<?= $mhs['id_mahasiswa'] ?>" onclick="return confirm('Hapus Data?')" type="button" class="btn btn-danger" data-toggle="tooltip" data-placement="bottom" title="Hapus Data"><i class="fas fa-trash-alt"></i> Hapus</a></td>
           </tr>
           <?php $i++ ?>
           <?php endforeach ?>

@@ -15,18 +15,19 @@
   <!-- MYCSS
   <link rel="stylesheet" type="css" href="assets/css/index.css"> -->
 
-      <!-- FONTAWESOWE -->
-    <link rel="stylesheet" type="text/css" href="../assets/css/fontawesome-free/css/all.min.css">
+  <!-- FONTAWESOWE -->
+  <link rel="stylesheet" type="text/css" href="../assets/css/fontawesome-free/css/all.min.css">
 
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
     integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
   <style>
-    nav{
+    nav {
       background: rgb(130, 14, 208);
       height: 50px;
     }
+
     .navbar-brand {
       text-shadow: 5px 5px black;
     }
@@ -37,7 +38,7 @@
       color: rgb(130, 14, 208);
     }
 
-    .nav-item .nav-link:hover{
+    .nav-item .nav-link:hover {
       border-bottom: 1px black solid;
       border-color: white;
     }
@@ -75,36 +76,38 @@
     }
 
 
-  .home hr{
+    .home hr {
       border-color: rgb(130, 14, 208);
       width: 100px;
       border-width: 5px;
     }
 
-  .card-img-top{
-    min-height: 250px;
-    max-height: 250px;
-  }
+    .card-img-top {
+      min-height: 250px;
+      max-height: 250px;
+    }
 
-  .row .card:hover{
-    box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.4);
-    transform: scale(1.02);
-  }
+    .row .card:hover {
+      box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.4);
+      transform: scale(1.02);
+    }
 
-  .lebih_banyak a{
-    font-size: 25px;
-    text-decoration: none;
-    border:none;
-    color: black;
-    transition: 1s;
+    .lebih_banyak a {
+      font-size: 25px;
+      text-decoration: none;
+      border: none;
+      color: black;
+      transition: 1s;
 
-  }
-  .lebih_banyak a:hover{
-    color: rgb(130, 14, 208);
-  }
-  .lebih_banyak hr:hover{
-    color: black;
-  }
+    }
+
+    .lebih_banyak a:hover {
+      color: rgb(130, 14, 208);
+    }
+
+    .lebih_banyak hr:hover {
+      color: black;
+    }
 
 
     .copyright {
@@ -114,6 +117,8 @@
 
 
   <title>Hello, world!</title>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  
 </head>
 
 <body>
@@ -153,14 +158,12 @@
             <img class="card-img-top" src="../assets/image/upload/<?= $am['gambar'] ?>" alt="Card image cap">
             <div class="card-body">
               <h5 class="card-title"><?= $am['nama_alat_musik'] ?></h5>
-              <a href="#" class="view_data btn btn-dark" style="background-color: rgb(130, 14, 208);">Details</a>
+              <a href="#" type="button" class="btn btn-dark" style="background-color: rgb(130, 14, 208);">Details</a>
             </div>
           </div>
+        </div>
+        <?php endforeach ?>
       </div>
-      <?php endforeach ?>
-    </div>
-
-    </div>
   </section>
 
   <footer class="text-white bg-dark mt-5 pt-5">
@@ -170,13 +173,15 @@
           <h5>Social Media</h5>
           <ul type="none">
             <li>
-              <a href="https://www.instagram.com/sqlite3/" class="badge badge-light"><i class="fab fa-instagram"></i> Instagram</a>
+              <a href="https://www.instagram.com/sqlite3/" class="badge badge-light"><i class="fab fa-instagram"></i>
+                Instagram</a>
             </li>
             <li>
-            <a href="https://github.com/AldiAgeng" class="badge badge-light"><i class="fab fa-github"></i> Github</a>
+              <a href="https://github.com/AldiAgeng" class="badge badge-light"><i class="fab fa-github"></i> Github</a>
             </li>
             <li>
-              <a href="https://twitter.com/aldiageng48" class="badge badge-light"><i class="fab fa-twitter"></i> Twitter</a>
+              <a href="https://twitter.com/aldiageng48" class="badge badge-light"><i class="fab fa-twitter"></i>
+                Twitter</a>
             </li>
           </ul>
         </div>
@@ -195,16 +200,19 @@
       </div>
     </div>
   </footer>
-  
+
   <div class="copyright text-center text-white font-weight-bold p-2">
     <p style="font-weight: 200; padding-top:20px;">AldiAgeng Copyright &#169; 2020 </p>
   </div>
-
-
   <!-- Optional JavaScript -->
   <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+    integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous">
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous">
+  </script>
+  
 </body>
+
 </html>

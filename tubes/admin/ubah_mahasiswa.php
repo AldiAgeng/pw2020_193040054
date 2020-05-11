@@ -1,23 +1,21 @@
 <?php
   require '../config/functions.php';
-
-  $mahasiswa = query("SELECT * FROM mahasiswa");
-  $alat_musik = query("SELECT * FROM alat_musik");
-  $id_peminjaman = $_GET['id_peminjaman'];
-  $peminjaman = query("SELECT * FROM peminjaman WHERE id_peminjaman = '$id_peminjaman' ")[0];
-
+  $id_mahasiswa = $_GET['id_mahasiswa'];
+  
+  $mahasiswa = query("SELECT * FROM mahasiswa WHERE id_mahasiswa = '$id_mahasiswa' ")[0];
   if(isset($_POST['ubah'])){
-    if(ubah_peminjaman($_POST) > 0){
+    if(ubah_mahasiswa($_POST) > 0){
       echo "<script>
         alert('Data Berhasil Diubah');
-        document.location.href = 'peminjaman.php';
+        document.location.href = 'mahasiswa.php';
       </script>";
     }else{
       echo "<script>
-        alert('Data Gagal Didiubah');
+        alert('Data Gagal Diubah');
       </script>";
     }
   }
+
 ?>
 <!doctype html>
 <html lang="en">
@@ -55,47 +53,32 @@
   <div class="container">
     <div class="row mt-5">
       <div class="col p-5 pt-2">
-      <h3><i class="fas fa-book-open mr-2"></i> UBAH PEMINJAMAN</a></h3><hr>
+      <h3><i class="fas fa-users mr-2"></i> UBAH MAHASISWA</a></h3><hr>
       
       <form action="" method="post" enctype="multipart/form-data">
         <div class="form-group">
-          <input type="hidden" name="id_peminjaman" value="<?= $peminjaman['id_peminjaman'] ?>">
-
-          <label for="tgl_pinjam">Tanggal Pinjam</label>
-          <input type="date" name="tgl_pinjam" class="form-control" id="tgl_pinjam" placeholder="Tanggal Pinjam" value="<?= $peminjaman['tgl_pinjam'] ?>" required>
+          <input type="hidden" name="id_mahasiswa" value="<?= $mahasiswa['id_mahasiswa'] ?>">
+          <label for="nrp">NRP</label>
+          <input type="text" name="nrp" value="<?= $mahasiswa['nrp'] ?>" class="form-control" id="nrp" placeholder="NRP" autofocus autocomplete="off" required>
         </div>
         <div class="form-group">
-          <label for="tgl_kembali">Tanggal Kembali</label>
-          <input type="date" name="tgl_kembali" class="form-control" id="tgl_kembali" placeholder="Tanggal Kembali" value="<?= $peminjaman['tgl_kembali'] ?>" required>
+          <label for="nama">Nama Mahasiswa</label>
+          <input type="text" name="nama" value="<?= $mahasiswa['nama'] ?>" class="form-control" id="nama" placeholder="Nama Mahasiswa" autocomplete="off" required>
         </div>
         <div class="form-group">
-          <label for="jam_pinjam">Jam Pinjam</label>
-          <input type="time" name="jam_pinjam" class="form-control" id="jam_pinjam" placeholder="Jam Pinjam" value="<?= $peminjaman ['jam_pinjam'] ?>" required>
+          <label for="jurusan">Jurusan</label>
+          <input type="text" name="jurusan" value="<?= $mahasiswa['jurusan'] ?>" class="form-control" id="jurusan" placeholder="Jurusan" autocomplete="off" required>
         </div>
         <div class="form-group">
-          <label for="jam_kembali">Jam Kembali</label>
-          <input type="time" name="jam_kembali" class="form-control" id="jam_kembali" placeholder="Jam Kembali" value="<?= $peminjaman['jam_kembali'] ?>" required>
+          <label for="username">Username</label>
+          <input type="text" name="username" value="<?= $mahasiswa['username'] ?>" class="form-control" id="username" placeholder="Username" autocomplete="off" required>
         </div>
         <div class="form-group">
-          <label for="id_mahasiswa">Id Mahasiswa</label>
-          <select id="id_mahasiswa" name="id_mahasiswa" class="custom-select" required>
-            <option selected value="<?= $peminjaman['id_mahasiswa'] ?>"><?= $peminjaman['id_mahasiswa'] ?></option>
-            <?php foreach ($mahasiswa as $mhs) : ?>
-            <option value="<?= $mhs['id_mahasiswa'] ?>"><?= $mhs['id_mahasiswa'] ?></option>
-            <?php endforeach ?>
-          </select>
-        </div>
-        <div class="form-group">
-          <label for="id_alat_musik">Id Alat Musik</label>
-          <select id="id_alat_musik" name="id_alat_musik" class="custom-select" required>
-            <option selected value="<?= $peminjaman['id_alat_musik'] ?>"><?= $peminjaman['id_alat_musik'] ?></option>
-            <?php foreach ($alat_musik as $am) : ?>
-            <option value="<?= $am['id'] ?>"><?= $am['id'] ?></option>
-            <?php endforeach ?>
-          </select>
+          <label for="password">Password</label>
+          <input type="password" name="password" value="<?= $mahasiswa['password'] ?>" class="form-control" id="password" placeholder="Password" required>
         </div>
         <button type="submit" name="ubah" class="btn btn-info">Ubah</button>
-        <a href="peminjaman.php" type="submit" class="btn btn-info">Kembali</a>
+        <a href="mahasiswa.php" type="submit" class="btn btn-info">Kembali</a>
       </form>
     
     </div>

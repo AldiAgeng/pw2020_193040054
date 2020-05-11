@@ -15,4 +15,6 @@ $(document).ready(function () {
     $('.loader').show();
     $('#tabel-peminjaman').load('ajax/peminjaman.php?keyword=' + $('#keyword-peminjaman').val());
   });
+
+  // JQUERY MAHASISWA
 });
