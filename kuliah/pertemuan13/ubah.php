@@ -66,7 +66,7 @@ if(!isset($_SESSION['login'])){
       <div class="col p-5 pt-2">
       <h3><i class="fas fa-music mr-2"></i> UBAH MAHASISWA</a></h3><hr>
       
-      <form action="" method="post">
+      <form action="" method="post" enctype="multipart/form-data">
         <div class="form-group">
           <input type="hidden" name="id" value="<?= $mahasiswa['id'] ?>">
           <label for="nrp">NRP</label>
@@ -86,8 +86,10 @@ if(!isset($_SESSION['login'])){
         </div>
         <div class="form-group">
           <label for="gambar">Gambar</label>
-          <input type="text" name="gambar" value="<?= $mahasiswa['gambar'] ?>" class="form-control" id="gambar" placeholder="Gambar" required>
+          <input type="hidden" name="gambar_lama" value="<?= $mahasiswa['gambar'] ?>">
+          <input type="file" name="gambar" onchange="previewImage()" class="gambar form-control" id="gambar" placeholder="Gambar">
         </div>
+        <img src="img/<?= $mahasiswa['gambar'] ?>" width="100px" style="display: block; margin-bottom: 10px;" class="img-preview">
         <button type="submit" name="ubah" class="btn btn-info">Ubah</button>
         <a href="index.php" type="submit" class="btn btn-info">Kembali</a>
       </form>
@@ -96,7 +98,7 @@ if(!isset($_SESSION['login'])){
   </div>
   </div>
       
-      
+      <script src="js/script.js"></script>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>

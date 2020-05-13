@@ -20,6 +20,50 @@ function query($query){
   return $rows;
 }
 
+function upload(){
+  $nama_file = $_FILES['gambar']['name'];
+  $tipe_file = $_FILES['gambar']['type'];
+  $ukuran_file = $_FILES['gambar']['size'];
+  $error = $_FILES['gambar']['error'];
+  $tmp_file = $_FILES['gambar']['tmp_name'];
+
+  if($error == 4){
+    // echo "<script>
+    // alert('pilih gambar terlebih dahulu');
+    // </script>";
+    return 'nophoto.jpg';
+  }
+  
+  $daftar_gambar = ['jpg','jpeg','png'];
+  $ekstensi_file =  explode('.',$nama_file);
+  $ekstensi_file = strtolower(end($ekstensi_file));
+  if(!in_array($ekstensi_file, $daftar_gambar)){
+    echo "<script>
+    alert('yang anda pilih bukan gambar');
+    </script>";
+    return false;
+  }
+
+  if($tipe_file != 'image/jpeg' && $tipe_file != 'image/png'){
+    echo "<script>
+    alert('yang anda pilih bukan gambar');
+    </script>";
+  }
+
+  if($ukuran_file > 5000000){
+    echo "<script>
+    alert('ukuran terlalu besar');
+    </script>";
+  }
+
+  $nama_file_baru = uniqid();
+  $nama_file_baru .= '.';
+  $nama_file_baru .= $ekstensi_file;
+  move_uploaded_file($tmp_file, 'img/' . $nama_file_baru);
+
+  return $nama_file_baru;
+}
+
 function tambah($data){
   $conn = koneksi();
 
@@ -27,8 +71,11 @@ function tambah($data){
   $nama = htmlspecialchars($data['nama']);
   $email = htmlspecialchars($data['email']);
   $jurusan = htmlspecialchars($data['jurusan']);
-  $gambar = htmlspecialchars($data['gambar']);
-
+  // $gambar = htmlspecialchars($data['gambar']);
+  $gambar = upload();
+  if(!$gambar){
+    return false;
+  }
 
   $query = "INSERT INTO mahasiswa
           VALUES
@@ -46,6 +93,12 @@ function tambah($data){
 function hapus($id){
   $conn = koneksi();
 
+  //menghapus gambar di folder
+  $mhs = query("SELECT * FROM mahasiswa WHERE id = '$id'");
+  if($mhs['gambar'] != 'nophoto.jpg'){
+    unlink('img/' . $mhs['gambar']);
+  }
+
   mysqli_query($conn, "DELETE FROM mahasiswa WHERE id = $id") or die (mysqli_error($conn));
   return mysqli_affected_rows($conn);
 }
@@ -58,8 +111,16 @@ function ubah($data){
   $nama = htmlspecialchars($data['nama']);
   $email = htmlspecialchars($data['email']);
   $jurusan = htmlspecialchars($data['jurusan']);
-  $gambar = htmlspecialchars($data['gambar']);
+  $gambar_lama = htmlspecialchars($data['gambar_lama']);
 
+  $gambar = upload();
+  if(!$gambar){
+    return false;
+  }
+
+  if($gambar == 'nophoto.jpg'){
+    $gambar = $gambar_lama;
+  }
 
   $query = "UPDATE mahasiswa
             SET

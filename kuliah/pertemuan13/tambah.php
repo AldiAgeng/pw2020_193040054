@@ -59,7 +59,7 @@ if(!isset($_SESSION['login'])){
       <div class="col p-5 pt-2">
       <h3><i class="fas fa-music mr-2"></i> TAMBAH MAHASISWA</a></h3><hr>
       
-      <form action="" method="post">
+      <form action="" method="post" enctype="multipart/form-data">
         <div class="form-group">
           <label for="nrp">NRP</label>
           <input type="text" name="nrp" class="form-control" id="nrp" placeholder="NRP" required>
@@ -78,8 +78,9 @@ if(!isset($_SESSION['login'])){
         </div>
         <div class="form-group">
           <label for="gambar">Gambar</label>
-          <input type="text" name="gambar" class="form-control" id="gambar" placeholder="Gambar" required>
+          <input type="file" name="gambar" onchange="previewImage()" class="gambar form-control" id="gambar" placeholder="Gambar">
         </div>
+        <img src="img/nophoto.jpg" width="100px" style="display: block; margin-bottom: 10px;" class="img-preview">
         <button type="submit" name="tambah" class="btn btn-info">Tambah</button>
         <a href="index.php" type="submit" class="btn btn-info">Kembali</a>
       </form>
@@ -88,6 +89,8 @@ if(!isset($_SESSION['login'])){
   </div>
   </div>
       
+
+  <script src="js/script.js"></script>
       
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->

@@ -75,10 +75,9 @@ if(isset($_POST['cari'])){
     <div class="col" style="margin-left:370px;">
       <form class="form-inline" action="" method="post">
         <div class="form-group mx-sm-3 mb-2">
-          <input type="text" class="form-control" placeholder="Masukan Pencarian..." autocomplete="off" name="keyword" autofocus>
+          <input type="text" class="keyword form-control" placeholder="Masukan Pencarian..." autocomplete="off" name="keyword" autofocus>
         </div>
-        <button type="submit" class="btn btn-dark mb-2 mr-3" name="cari">Cari</button>
-        <button type="submit" class="btn btn-dark mb-2" name="refresh">Refresh</button>
+        <button type="submit" class="tombol-cari btn btn-dark mb-2 mr-3" name="cari">Cari</button>
       </form>
     </div>
   </div>
@@ -86,6 +85,7 @@ if(isset($_POST['cari'])){
     
 
 
+  <div class="tabel-mhs">
   <table class="table mt-5">
   <thead class="thead-dark">
     <tr class="text-center">
@@ -113,6 +113,7 @@ if(isset($_POST['cari'])){
     <?php endforeach ?>
   </tbody>
   </table>
+  </div>
     
     <div class="row">
         <div class="col">
@@ -123,6 +124,8 @@ if(isset($_POST['cari'])){
     </div>
   </div>
 
+
+  <script src="js/script.js"></script>
     
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
