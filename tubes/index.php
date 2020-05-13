@@ -151,7 +151,7 @@
             <a class="nav-link text-white" href="includes/produk.php">Produk</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link text-white" href="includes/login.php">Login</a>
+            <a class="nav-link text-white" href="includes/new_login.php">Login</a>
           </li>
         </ul>
       </div>
@@ -164,7 +164,7 @@
       <h1 class="display-4 text-white">ENJOY YOU LOAN</h1>
       <hr class="my-4">
       <p class="text-white">Musical Instrument Loans for Pasundan University Students</p>
-      <a href="includes/login.php" class="btn btn-lg text-white"><i class="fas fa-play"></i> Let's Start</a>
+      <a href="includes/new_login.php" class="btn btn-lg text-white"><i class="fas fa-play"></i> Let's Start</a>
     </div>
   </div>
 

@@ -127,8 +127,17 @@
     $nama = htmlspecialchars($data['nama']);
     $jurusan = htmlspecialchars($data['jurusan']);
     $username = strtolower(stripcslashes($data['username']));
-    $password = mysqli_real_escape_string($conn, $data['password']);
+    $password1 = mysqli_real_escape_string($conn, $data['password1']);
+    $password2 = mysqli_real_escape_string($conn, $data['password2']);
     $level = 'mahasiswa';
+
+    //cek username dan pw di isi tidak
+    if(empty($username) || empty($password1) || empty($password2)){
+    echo "<script>
+      alert('Username / Password tidak boleh kosong!');
+    </script>";
+    return false;
+  }
 
     //mencegah username sama
     $result = mysqli_query($conn, "SELECT username,nrp FROM mahasiswa WHERE username = '$username' OR nrp = '$nrp'");
@@ -139,7 +148,14 @@
       return false;
     }
 
-    $password = password_hash($password, PASSWORD_DEFAULT);
+    if($password1 !== $password2){
+    echo "<script>
+      alert('Konfirmasi password tidak sesuai');
+    </script>";
+    return false;
+  }
+
+    $password = password_hash($password1, PASSWORD_DEFAULT);
 
     //menambahkan mahasiswa baru
     $query_tambah = "INSERT INTO mahasiswa VALUES
@@ -150,7 +166,7 @@
     '$username',
     '$password',
     '$level')";
-    mysqli_query($conn, $query_tambah);
+    mysqli_query($conn, $query_tambah) or die(mysqli_error($conn));
     return mysqli_affected_rows($conn);
   }
 
@@ -296,6 +312,79 @@
           password = '$password',
           level = '$level'
           WHERE id_mahasiswa = '$id_mahasiswa'";
+  
+  mysqli_query($conn,$sql) or die(mysqli_error($conn));
+
+  return mysqli_affected_rows($conn);
+  }
+
+  // ADMIN ADMIN
+  function tambah_admin($data){
+    $conn = koneksi();
+
+    $username = strtolower(stripcslashes($data['username']));
+    $password = mysqli_real_escape_string($conn, $data['password']);
+    $nama_admin = htmlspecialchars($data['nama_admin']);
+    $no_hp = htmlspecialchars($data['no_hp']);
+    $level = 'admin';
+
+    $result = mysqli_query($conn, "SELECT username FROM admin WHERE username = '$username' ");
+    if(mysqli_fetch_assoc($result)){
+      echo "<script>
+        alert('Username & NRP sudah digunakan');
+      </script>";
+      return false;
+    }
+
+    $password = password_hash($password, PASSWORD_DEFAULT);
+
+    $sql = "INSERT INTO admin VALUES
+          ('',
+          '$username',
+          '$password',
+          '$nama_admin',
+          '$no_hp',
+          '$level')";
+  
+  mysqli_query($conn,$sql) or die (mysqli_error($conn));
+  return mysqli_affected_rows($conn);
+  }
+
+  function hapus_admin($id_admin){
+    $conn = koneksi();
+
+    $sql = "DELETE FROM admin WHERE id_admin = '$id_admin' ";
+    mysqli_query($conn,$sql) or die(mysqli_error($conn));
+    return mysqli_affected_rows($conn);
+  }
+
+  function ubah_admin($data){
+    $conn = koneksi();
+
+    $id_admin = $data['id_admin'];
+    $username = strtolower(stripcslashes($data['username']));
+    $password = mysqli_real_escape_string($conn, $data['password']);
+    $nama_admin = htmlspecialchars($data['nama_admin']);
+    $no_hp = htmlspecialchars($data['no_hp']);
+    $level = 'admin';
+
+  // $result = mysqli_query($conn, "SELECT username FROM admin WHERE username = '$username' ");
+  //   if(mysqli_fetch_assoc($result)){
+  //     echo "<script>
+  //       alert('Username & NRP sudah digunakan');
+  //     </script>";
+  //     return false;
+  //   }
+
+    $password = password_hash($password, PASSWORD_DEFAULT);
+
+    $sql = "UPDATE admin SET
+          username = '$username',
+          password = '$password',
+          level = '$level',
+          nama_admin = '$nama_admin',
+          no_hp = '$no_hp'
+          WHERE id_admin = '$id_admin'";
   
   mysqli_query($conn,$sql) or die(mysqli_error($conn));
 

@@ -116,7 +116,7 @@
           <hr class="bg-secondary">
         </li>
         <li class="nav-item">
-          <a class="nav-link text-white" href="#">
+          <a class="nav-link text-white" href="admin.php">
             <i class="fas fa-users-cog mr-2"></i> Daftar Admin</a>
           <hr class="bg-secondary">
         </li>

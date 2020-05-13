@@ -23,18 +23,18 @@ if(isset($_SESSION['username']) AND $_SESSION['level'] == 'admin'){
     //cocokan USERNAME dan PASSWORD
     if(mysqli_num_rows($cek_admin) > 0){
       $row = mysqli_fetch_assoc($cek_admin);
-      if($password == $row['password']){
+      if(password_verify($password,$row['password'])){
         $_SESSION['username'] = $_POST['username'];
-        $_SESSION['hash'] = $row['id_admin'];
+        $_SESSION['hash'] = hash('sha256', $row['id_admin'], false);
         $_SESSION['level'] = 'admin';
-      }
-      if($row['id_admin'] == $_SESSION['hash']){
+      if(hash('sha256', $row['id_admin']) == $_SESSION['hash']){
         header("Location: ../admin/dashboard.php");
         die;
       }
       header("Location: ../index.php");
       die;
     }
+  }
     
     if(mysqli_num_rows($cek_mahasiswa) > 0){
       $row = mysqli_fetch_assoc($cek_mahasiswa);
@@ -190,12 +190,12 @@ if(isset($_SESSION['username']) AND $_SESSION['level'] == 'admin'){
     <hr class="my-4">
 
     <div class="txtb">
-      <input type="text" name="username">
+      <input type="text" name="username" autofocus autocomplete="off" required>
       <span data-placeholder="Username"></span>
     </div>
 
     <div class="txtb">
-      <input type="password" name="password">
+      <input type="password" name="password" required>
       <span data-placeholder="Password"></span>
     </div>
 

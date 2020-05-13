@@ -38,7 +38,7 @@
     .login-form {
       width: 360px;
       background: #f1f1f1;
-      height: 640px;
+      height: 680px;
       padding: 80px 40px;
       border-radius: 10px;
       position: absolute;
@@ -107,7 +107,8 @@
       color: #fff;
       outline: none;
       cursor: pointer;
-      transition: .5s;
+      transition: 1s;
+      margin-bottom: 20px;
     }
 
     .logbtn:hover {
@@ -130,6 +131,22 @@
       width: 220px;
       border-width: 1px;
     }
+    .kembali{
+      transition-delay: 1s;
+      position: absolute;
+      top:20px;
+      left: 10px;
+      width: 100px;
+      height: 20px;
+      background: linear-gradient(120deg, gray, rgb(130, 14, 208), gray);
+      cursor: pointer;
+      border-radius: 50px;
+      text-align: center;
+      
+    }
+    .kembali a{
+      color: white;
+    }
   </style>
 </head>
 
@@ -148,36 +165,39 @@
     endif ?>
     <h1>Registrasi</h1>
     <hr class="my-4">
+    
+    <div class="kembali">
+    <a href="login.php">Kembali</a>
+    </div>
 
     <form action="" method="post">
 
     <div class="txtb">
-      <input type="text" name="nrp">
+      <input type="text" name="nrp" autofocus autocomplete="off" required>
       <span data-placeholder="NRP"></span>
     </div>
 
     <div class="txtb">
-      <input type="text" name="nama">
+      <input type="text" name="nama" autocomplete="off" required>
       <span data-placeholder="Nama Lengkap"></span>
     </div>
 
     <div class="txtb">
-      <input type="text" name="jurusan">
+      <input type="text" name="jurusan" autocomplete="off" required>
       <span data-placeholder="Jurusan"></span>
     </div>
 
     <div class="txtb">
-      <input type="text" name="username">
+      <input type="text" name="username" autocomplete="off" required>
       <span data-placeholder="Username"></span>
     </div>
 
     <div class="txtb">
-      <input type="password" name="password">
+      <input type="password" name="password" required>
       <span data-placeholder="Password"></span>
     </div>
 
     <input type="submit" name="register" class="logbtn" value="REGISTER">
-
   </form>
 
   <script type="text/javascript">
