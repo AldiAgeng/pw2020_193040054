@@ -29,7 +29,7 @@
 
     //upload 
     $gambar = upload();
-    if($gambar == false){
+    if(!$gambar){
       return false;
     }
 
@@ -44,16 +44,17 @@
   function upload(){
     
     $namaFile = $_FILES['gambar']['name'];
+    $tipeFile = $_FILES['gambar']['type'];
     $ukuranFile = $_FILES['gambar']['size'];
     $error = $_FILES['gambar']['error'];
     $tmpName = $_FILES['gambar']['tmp_name'];
 
     //cek gambar diupload apa tidak
     if($error ===4){
-      echo "<script>
-        alert('Anda tidak memilih gambar, pilih gambar dahulu');
-      </script>";
-      return false;
+      // echo "<script>
+      //   alert('Anda tidak memilih gambar, pilih gambar dahulu');
+      // </script>";
+      return 'nophoto.jpg';
     }
 
     //cek ektensi gambar
@@ -70,8 +71,15 @@
       return false;
     }
 
+    if($tipeFile != "image/png" && $tipeFile != "image/jpeg"){
+      echo "<script>
+        alert('yang Anda upload bukan gambar');
+      </script>";
+      return false;
+    }
+
     //cek ukuran file jangan lebih dari 1mb
-    if( $ukuranFile > 1000000){
+    if( $ukuranFile > 3000000){
       echo "<script>
         alert('ukuran gambar terlalu besar');
       </script>";
@@ -79,17 +87,24 @@
     }
 
     //lolos pengecekan, dan di upload
-    move_uploaded_file($tmpName, '../assets/image/upload/' . $namaFile);
+    $namaFileBaru = uniqid();
+    $namaFileBaru .= '.';
+    $namaFileBaru .= $ekstensiGambar;
+    move_uploaded_file($tmpName, '../assets/image/upload/' . $namaFileBaru);
+
     
-    return $namaFile;
+    return $namaFileBaru;
   }
 
   function hapus($id){
     $conn = koneksi();
-
+    
+    $alat_musik = query("SELECT * FROM alat_musik WHERE id = $id")[0];
+    if($alat_musik['gambar'] != 'nophoto.jpg'){
+      unlink('../assets/image/upload/' . $alat_musik['gambar']);
+    }
+    
     mysqli_query($conn, "DELETE FROM alat_musik WHERE id = $id");
-
-
     return mysqli_affected_rows($conn);
   }
 
@@ -102,10 +117,14 @@
     $harga = htmlspecialchars($data['harga']);
     $cara_dimainkan = htmlspecialchars($data['cara_dimainkan']);
     $jumlah_alat = htmlspecialchars($data['jumlah_alat']);
+    $gambar_lama = htmlspecialchars($data['gambar_lama']);
     
     $gambar = upload();
-    if($gambar == false){
+    if(!$gambar){
       return false;
+    }
+    if($gambar == 'nophoto.jpg'){
+      $gambar = $gambar_lama;
     }
 
     $queryubah = "UPDATE alat_musik SET
@@ -132,9 +151,9 @@
     $level = 'mahasiswa';
 
     //cek username dan pw di isi tidak
-    if(empty($username) || empty($password1) || empty($password2)){
+    if(empty($nrp) || empty($nama) || empty($jurusan) ||  empty($username) || empty($password1) || empty($password2)){
     echo "<script>
-      alert('Username / Password tidak boleh kosong!');
+      alert('Data tidak boleh kosong!');
     </script>";
     return false;
   }
@@ -202,6 +221,8 @@
     $jam_kembali = htmlspecialchars($data['jam_kembali']);
     $id_mahasiswa = htmlspecialchars($data['id_mahasiswa']);
     $id_alat_musik = htmlspecialchars($data['id_alat_musik']);
+
+    
     $query =  "INSERT INTO peminjaman
               VALUES
               ('','$tgl_pinjam','$tgl_kembali','$jam_pinjam','$jam_kembali','$id_mahasiswa','$id_alat_musik')";
@@ -252,6 +273,13 @@
     $password = mysqli_real_escape_string($conn, $data['password']);
     $level = 'mahasiswa';
 
+    if(empty($nrp) || empty($nama) || empty($jurusan) ||  empty($username) || empty($password)){
+    echo "<script>
+      alert('Data tidak boleh kosong!');
+    </script>";
+    return false;
+  }
+
     $result = mysqli_query($conn, "SELECT username,nrp FROM mahasiswa WHERE username = '$username' OR nrp = '$nrp'");
     if(mysqli_fetch_assoc($result)){
       echo "<script>
@@ -294,6 +322,13 @@
     $password = mysqli_real_escape_string($conn, $data['password']);
     $level = 'mahasiswa';
 
+    if(empty($nrp) || empty($nama) || empty($jurusan) ||  empty($username) || empty($password)){
+    echo "<script>
+      alert('Data tidak boleh kosong!');
+    </script>";
+    return false;
+  }
+
     // $result = mysqli_query($conn, "SELECT username,nrp FROM mahasiswa WHERE username = '$username' OR nrp = '$nrp'");
     // if(mysqli_fetch_assoc($result)){
     //   echo "<script>
@@ -328,6 +363,13 @@
     $no_hp = htmlspecialchars($data['no_hp']);
     $level = 'admin';
 
+    if(empty($username) || empty($password) || empty($nama_admin) || empty($no_hp)){
+    echo "<script>
+      alert('Data tidak boleh kosong!');
+    </script>";
+    return false;
+  }
+
     $result = mysqli_query($conn, "SELECT username FROM admin WHERE username = '$username' ");
     if(mysqli_fetch_assoc($result)){
       echo "<script>
@@ -353,6 +395,13 @@
   function hapus_admin($id_admin){
     $conn = koneksi();
 
+    if($id_admin === '3' || $id_admin === '6'){
+      echo "<script>
+        alert('Mohon Maaf Data Admin Ini Tidak Bisa Dihapus & Diubah Datanya Karna Diset Secara Permanen, Ty XD');
+      </script>";
+      return false;
+    }
+
     $sql = "DELETE FROM admin WHERE id_admin = '$id_admin' ";
     mysqli_query($conn,$sql) or die(mysqli_error($conn));
     return mysqli_affected_rows($conn);
@@ -367,6 +416,20 @@
     $nama_admin = htmlspecialchars($data['nama_admin']);
     $no_hp = htmlspecialchars($data['no_hp']);
     $level = 'admin';
+
+    if(empty($username) || empty($password) || empty($nama_admin) || empty($no_hp)){
+    echo "<script>
+      alert('Data tidak boleh kosong!');
+    </script>";
+    return false;
+  }
+
+    if($id_admin === '3' || $id_admin === '6'){
+      echo "<script>
+        alert('Mohon Maaf Data Admin Ini Tidak Bisa Dihapus & Diubah Datanya Karna Diset Secara Permanen, Ty XD');
+      </script>";
+      return false;
+    }
 
   // $result = mysqli_query($conn, "SELECT username FROM admin WHERE username = '$username' ");
   //   if(mysqli_fetch_assoc($result)){

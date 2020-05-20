@@ -1,5 +1,9 @@
 <?php
 session_start();
+if(!isset($_SESSION["username"])){
+  header("Location: new_login.php");
+  exit;
+}
   require '../config/functions.php';
 
   $username = $_SESSION['username'];
@@ -34,6 +38,8 @@ session_start();
     <!-- MYCSS -->
     <link rel="stylesheet" type="text/css" href="../assets/css/admin.css">
 
+    <link rel="shortcut icon" href="../assets/image/favicon.ico">
+
     <style>
     .nav-link:hover {
     background-color: gray;
@@ -55,29 +61,42 @@ session_start();
     </style>
 
 
-    <title>Hello, world!</title>
+    <title>HappyMusical | Riwayat</title>
   </head>
   <body>
     
-  <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+  <nav class="navbar navbar-expand-lg navbar-dark">
     <div class="container">
-    <a class="navbar-brand" href="#">Selamat Datang <?= $mahasiswa['nama'] ?></a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-      
-      <div class="icon ml-auto">
-        <h5>
-          <a href="../config/logout.php"><i class="fas fa-sign-out-alt mr-3" data-toggle="tooltip" title="Sign Out"></a></i>
-        </h5>
+    <a class="navbar-brand text-white" href="#"><i class="fas fa-compact-disc"></i> HappyMusical</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon text-white"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <div class="icon ml-auto">
+              <p class="mt-1">
+                <a href="../config/logout.php"><i class="fas fa-sign-out-alt mr-3" data-toggle="tooltip" title="Sign Out"> Sign Out</a></i>
+              </p>
+            </div>
+          </li>
+        </ul>
       </div>
-    </div>
-    </div>
+    
+  </div>
+  
   </nav>
 
-  <div class="row no-gutters mt-5">
-    <div class="col-md-2 bg-dark mt-2 pr-3 pt-4">
+  <div class="row no-gutters">
+    <div class="col-md-2 bg-dark pr-3 pt-4">
       <ul class="nav flex-column ml-3 mb-5">
+        <li class="nav-item">
+          <h4 class="text-white text-center"><i class="far fa-user-circle"></i></h4>
+          <p class="text-white text-center">SELAMAT DATANG</p>
+          <p class="text-white text-center"><?= $mahasiswa['nama'] ?></p>
+          <hr class="bg-secondary">
+        </li>
         <li class="nav-item">
           <a class="nav-link active text-white" href="mahasiswa_riwayat.php">
             <i class="fas fa-history"></i> Riwayat Peminjaman</a>
@@ -99,6 +118,7 @@ session_start();
 
       <div class="row">
         <div class="col">
+          <div class="table-responsive">
           <table class="table">
             <thead class="thead-dark ">
               <tr>
@@ -130,6 +150,7 @@ session_start();
             </tbody>
           </table>
         </div>
+      </div>
       </div>
 
     </div>

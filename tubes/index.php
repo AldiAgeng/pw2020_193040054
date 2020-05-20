@@ -22,11 +22,14 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
     integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
+  <link rel="shortcut icon" href="assets/image/favicon.ico">
+
   <style>
     .jika_scroll {
-		background: rgb(130, 14, 208);
+		background: rgba(130, 14, 208,0.7);
 		}
     nav{
+      transition: 0.4s;
       background-color: transparent;
       height: 50px;
     }
@@ -130,7 +133,7 @@
     });
       </script>
 
-  <title>Hello, world!</title>
+  <title>HappyMusical</title>
 </head>
 
 <body>
@@ -163,7 +166,7 @@
     <div class="container">
       <h1 class="display-4 text-white">ENJOY YOU LOAN</h1>
       <hr class="my-4">
-      <p class="text-white">Musical Instrument Loans for Pasundan University Students</p>
+      <p class="text-white">Peminjaman Alat Musik untuk Mahasiswa Universitas Pasundan</p>
       <a href="includes/new_login.php" class="btn btn-lg text-white"><i class="fas fa-play"></i> Let's Start</a>
     </div>
   </div>
@@ -174,12 +177,12 @@
       <hr class="my-4">
       <div class="row">
         <?php foreach ($alat_musik as $am) : ?>
-        <div class="col-md">
-          <div class="card" style="width: 16rem;">
+        <div class="col-md-4">
+          <div class="card mb-5 mt-5" style="width: 16rem; margin: auto;">
             <img class="card-img-top" src="assets/image/upload/<?= $am['gambar'] ?>" alt="Card image cap">
             <div class="card-body">
               <h5 class="card-title"><?= $am['nama_alat_musik'] ?></h5>
-              <a href="#" class="view_data btn btn-dark" style="background-color: rgb(130, 14, 208);">Details</a>
+              <a href="includes/details.php?id=<?= $am['id'] ?>" class="view_data btn btn-dark" style="background-color: rgb(130, 14, 208);">Details</a>
             </div>
           </div>
       </div>
@@ -213,7 +216,7 @@
           <h5>About Us</h5>
           <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam, atque possimus labore accusamus quasi qui
             enim, nulla unde dolore molestias tenetur beatae libero eaque commodi reprehenderit? Aliquam illum itaque
-            error!/p>
+            error!</p>
         </div>
         <div class="col">
           <h5>Collaboration</h5>

@@ -1,15 +1,23 @@
 <?php
   require '../../config/functions.php';
   $keyword = $_GET['keyword'];
+
+  $jumlahDataPerHalaman = 5;
+  $jumlahData = count(query("SELECT * FROM alat_musik"));
+  $jumlahHalaman = ceil($jumlahData / $jumlahDataPerHalaman);
+  $halamanAktif = (isset($_GET['page'])) ? $_GET['page'] : 1;
+  $awalData = ($jumlahDataPerHalaman * $halamanAktif ) - $jumlahDataPerHalaman;
+
   $query = ("SELECT * FROM alat_musik WHERE 
             nama_alat_musik LIKE '%$keyword%' OR
             merk LIKE '%$keyword%' OR
             harga LIKE '%$keyword%' OR 
             cara_dimainkan LIKE '%$keyword%' OR
-            jumlah_alat LIKE '%$keyword%' ");
+            jumlah_alat LIKE '%$keyword%' LIMIT $awalData, $jumlahDataPerHalaman");
   $alat_musik = query($query);
   ?>
-<table class="table text-center mt-3">
+  <div class="table-responsive">
+    <table class="table text-center mt-3 table-hover">
         <thead class="thead-dark table-bordered">
           <tr>
             <th scope="col">#</th>
@@ -48,3 +56,23 @@
           <?php endif ?>
         </tbody>
       </table>
+      <div aria-label="Page navigation example float-right">
+          <ul class="pagination">
+            <?php if($halamanAktif > 1) : ?>
+            <li class="page-item"><a class="page-link" href="?page=<?= $halamanAktif - 1 ?>">Previous</a></li>
+            <?php endif ?>
+
+            <?php for($i = 1; $i <= $jumlahHalaman; $i++) : ?>
+              <?php if($i == $halamanAktif) : ?>
+            <li class="page-item"><a class="page-link" href="?page=<?= $i ?>" style="font-weight: bold;"><?= $i+$awalData ?></a></li>
+              <?php else : ?>
+            <li class="page-item"><a class="page-link" href="?page=<?= $i ?>"><?= $i ?></a></li>
+              <?php endif ?>
+            <?php endfor ?>
+
+            <?php if($halamanAktif < $jumlahHalaman) : ?>
+            <li class="page-item"><a class="page-link" href="?page=<?= $halamanAktif + 1 ?>">Next</a></li>
+            <?php endif ?>
+          </ul>
+        </div>
+</div>

@@ -1,5 +1,17 @@
 <?php
+session_start();
+if(!isset($_SESSION["username"])){
+  header("Location: ../includes/new_login.php");
+  exit;
+}
+    
+
   require '../config/functions.php';
+
+  $username = $_SESSION['username'];
+  $user_admin = query("SELECT * FROM admin WHERE username = '$username' ")[0];
+
+
   $jumlah_alat_musik = mysqli_query(koneksi(),"SELECT * FROM alat_musik");
   $jumlah_mahasiswa = mysqli_query(koneksi(), "SELECT * FROM mahasiswa");
   $jumlah_peminjaman = mysqli_query(koneksi(), "SELECT * FROM peminjaman");
@@ -23,10 +35,9 @@
     <!-- MYCSS -->
     <link rel="stylesheet" type="text/css" href="../assets/css/admin.css">
 
+    <link rel="shortcut icon" href="../assets/image/favicon.ico">
+
     <style>
-    .nav-link:hover {
-    background-color: gray;
-    }
     nav{
       background: rgb(130, 14, 208);
     }
@@ -40,33 +51,56 @@
     }
     .icon a{
       color: white;
+      font-size: 12px;
+    }
+    @media (min-width: 576px) {
+      .card{
+        margin-left: 20px;
+      }
+    }
+    .cetak a{
+      display : block;
     }
     </style>
 
 
-    <title>Hello, world!</title>
+    <title>HappyMusical | Dashboard</title>
   </head>
   <body>
     
-  <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+  <nav class="navbar navbar-expand-lg navbar-dark">
     <div class="container">
-    <a class="navbar-brand" href="#">Selamat Datang Admin</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-      
-      <div class="icon ml-auto">
-        <h5>
-          <a href="../config/logout.php"><i class="fas fa-sign-out-alt mr-3" data-toggle="tooltip" title="Sign Out"></a></i>
-        </h5>
+    <a class="navbar-brand text-white" href="#"><i class="fas fa-compact-disc"></i> HappyMusical</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon text-white"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <div class="icon ml-auto">
+              <p class="mt-1">
+                <a href="../config/logout.php"><i class="fas fa-sign-out-alt mr-3" data-toggle="tooltip" title="Sign Out"> Sign Out</a></i>
+              </p>
+            </div>
+          </li>
+        </ul>
       </div>
-    </div>
-    </div>
+    
+  </div>
+  
   </nav>
 
-  <div class="row no-gutters mt-5">
-    <div class="col-md-2 bg-dark mt-2 pr-3 pt-4">
+
+  <div class="row no-gutters">
+    <div class="col-md-2 bg-dark pr-3 pt-4">
       <ul class="nav flex-column ml-3 mb-5">
+        <li class="nav-item">
+          <h4 class="text-white text-center"><i class="far fa-user-circle"></i></h4>
+          <p class="text-white text-center">SELAMAT DATANG</p>
+          <p class="text-white text-center"><?= $user_admin['nama_admin'] ?></p>
+          <hr class="bg-secondary">
+        </li>
         <li class="nav-item">
           <a class="nav-link active text-white" href="dashboard.php">
             <i class="fas fa-tachometer-alt mr-2"></i> Dashboard</a>
@@ -88,7 +122,7 @@
           <hr class="bg-secondary">
         </li>
         <li class="nav-item">
-          <a class="nav-link text-white" href="#">
+          <a class="nav-link text-white" href="admin.php">
             <i class="fas fa-users-cog mr-2"></i> Daftar Admin</a>
           <hr class="bg-secondary">
         </li>
@@ -97,12 +131,25 @@
         <?php endfor ?>
       </ul>
     </div>
+
     <div class="col-md-10 p-5 pt-2">
       <h3><i class="fas fa-tachometer-alt mr-2"></i> Dashboard</a></h3><hr>
 
       <div class="row text-white">
-        
-        <div class="card bg-danger ml-5" style="width: 18rem;">
+
+      <div class="cetak">
+      <div class="row">
+      <div class="col">
+      <a  href="../laporan_alat_musik.php" target="_blank" type="button" class="btn btn-dark mb-4 mt-3" data-toggle="tooltip" data-placement="bottom" title="Tambah Data"><i class="fas fa-print"></i> Laporan Alat Musik</a>
+
+      <a href="../laporan_peminjaman.php" type="button" class="btn btn-dark mb-4" data-toggle="tooltip" data-placement="bottom" title="Tambah Data"><i class="fas fa-print"></i> Laporan Peminjaman</a>
+
+      <a href="../laporan_mahasiswa.php" type="button" class="btn btn-dark mb-4" data-toggle="tooltip" data-placement="bottom" title="Tambah Data"><i class="fas fa-print"></i> Laporan Mahasiswa</a>
+    </div>
+    </div>
+    </div>
+
+        <div class="card bg-danger mb-1" style="width: 18rem;">
           <div class="card-body">
             <div class="card-body-icon">
               <i class="fas fa-music mr-2"></i>
@@ -113,7 +160,7 @@
           </div>
         </div>
 
-        <div class="card bg-primary ml-5" style="width: 18rem;">
+        <div class="card bg-primary mb-1" style="width: 18rem;">
           <div class="card-body">
             <div class="card-body-icon">
               <i class="fas fa-book-open mr-2"></i>
@@ -124,7 +171,7 @@
           </div>
         </div>
 
-        <div class="card bg-success ml-5" style="width: 18rem;">
+        <div class="card bg-success mb-1" style="width: 18rem;">
           <div class="card-body">
             <div class="card-body-icon">
               <i class="fas fa-users mr-2"></i>
@@ -137,8 +184,16 @@
 
       </div>
 
+      <div class="row">
+          <div class="col">
+            <hr>
+            <footer><p>Copyright&#169; AldiAgeng2020</p></footer>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
+  
 
     
     <!-- MYJS -->

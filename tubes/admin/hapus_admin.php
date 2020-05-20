@@ -1,4 +1,10 @@
 <?php
+  session_start();
+  if(!isset($_SESSION["username"])){
+  header("Location: ../includes/new_login.php");
+  exit;
+}
+
   require '../config/functions.php';
   $id_admin = $_GET['id_admin'];
   if(hapus_admin($id_admin) > 0){

@@ -1,4 +1,11 @@
 <?php
+  session_start();
+  if(!isset($_SESSION["username"])){
+  header("Location: ../includes/new_login.php");
+  exit;
+}
+
+
   require '../config/functions.php';
   if(isset($_POST['tambah'])){
     if(tambah($_POST) > 0){
@@ -27,21 +34,20 @@
     <!-- FONTAWESOWE -->
     <link rel="stylesheet" type="text/css" href="../assets/css/fontawesome-free/css/all.min.css">
 
+    <link rel="shortcut icon" href="../assets/image/favicon.ico">
+
     <style>
     nav{
       background: rgb(130, 14, 208);
     }
     </style>
 
-    <title>Hello, world!</title>
+    <title>HappyMusical | Alat Musik</title>
   </head>
   <body>
     <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
     <div class="container">
-    <a class="navbar-brand" href="#">Selamat Datang Admin</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
+    <a class="navbar-brand text-white" href="#"><i class="fas fa-compact-disc"></i> HappyMusical</a>
   
     </div>
     </div>
@@ -55,34 +61,40 @@
       <form action="" method="post" enctype="multipart/form-data">
         <div class="form-group">
           <label for="nama_alat_musik">Nama Alat Musik</label>
-          <input type="text" name="nama_alat_musik" class="form-control" id="nama_alat_musik" placeholder="Nama Alat Musik" required>
+          <input type="text" name="nama_alat_musik" class="form-control" id="nama_alat_musik" placeholder="Nama Alat Musik" autocomplete="off" required>
         </div>
         <div class="form-group">
           <label for="merk">Merk</label>
-          <input type="text" name="merk" class="form-control" id="merk" placeholder="Merk" required>
+          <input type="text" name="merk" class="form-control" id="merk" placeholder="Merk" autocomplete="off" required>
         </div>
         <div class="form-group">
           <label for="harga">Harga</label>
-          <input type="text" name="harga" class="form-control" id="harga" placeholder="Harga" required>
+          <input type="text" name="harga" class="form-control" id="harga" placeholder="Harga" autocomplete="off" required>
         </div>
         <div class="form-group">
           <label for="cara_dimainkan">Cara Dimainkan</label>
-          <input type="text" name="cara_dimainkan" class="form-control" id="cara_dimainkan" placeholder="Cara Dimainkan" required>
+          <input type="text" name="cara_dimainkan" class="form-control" id="cara_dimainkan" placeholder="Cara Dimainkan" autocomplete="off" required>
         </div>
         <div class="form-group">
           <label for="jumlah_alat">Jumlah Alat</label>
-          <input type="text" name="jumlah_alat" class="form-control" id="jumlah_alat" placeholder="Jumlah Alat" required>
+          <input type="text" name="jumlah_alat" class="form-control" id="jumlah_alat" placeholder="Jumlah Alat" autocomplete="off" required>
         </div>
         <div class="form-group">
           <label for="gambar">Gambar</label>
-          <input type="file" name="gambar" class="form-control" id="gambar" placeholder="Gambar" required>
+          <input type="file" name="gambar" class="form-control" id="gambar" placeholder="Gambar" autocomplete="off">
         </div>
         <button type="submit" name="tambah" class="btn btn-info">Tambah</button>
         <a href="alat_musik.php" type="submit" class="btn btn-info">Kembali</a>
       </form>
     
-    </div>
+    </div>  
   </div>
+  <div class="row">
+        <div class="col">
+          <hr>
+          <footer><p>Copyright&#169; AldiAgeng2020</p></footer>
+        </div>
+      </div>
   </div>
       
       

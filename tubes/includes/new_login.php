@@ -6,13 +6,13 @@ if(isset($_SESSION['username']) AND $_SESSION['level'] == 'admin'){
   //cek apakah admin sudah melakukan login jika sudah direct ke halaman dashoard admin
     header("Location: ../admin/dashboard.php");
     exit;
-  }else{
+  }
   //cek apakah mahasiswa sudah melakukan login jika sudah direct ke halaman mahasiswa_riwayat
-  if(isset($_SESSION['username'])){
+  if(isset($_SESSION['username']) AND $_SESSION['level'] == 'mahasiswa' ){
     header("Location: mahasiswa_riwayat.php");
     exit;
   }
-}
+
   //Login
   if(isset($_POST['submit'])){
     $username = $_POST['username'];
@@ -27,6 +27,12 @@ if(isset($_SESSION['username']) AND $_SESSION['level'] == 'admin'){
         $_SESSION['username'] = $_POST['username'];
         $_SESSION['hash'] = hash('sha256', $row['id_admin'], false);
         $_SESSION['level'] = 'admin';
+        // jika remember diklik
+        if(isset($_POST['remember'])){
+          setcookie('username', $row['username'], time() + 60 * 60 * 24);
+          $hash = hash('sha256', $row["id_admin"]);
+          setcookie('hash', $hash, time() + 60 * 60 * 24);
+        }
       if(hash('sha256', $row['id_admin']) == $_SESSION['hash']){
         header("Location: ../admin/dashboard.php");
         die;
@@ -42,6 +48,12 @@ if(isset($_SESSION['username']) AND $_SESSION['level'] == 'admin'){
         $_SESSION['username'] = $_POST['username'];
         $_SESSION['hash'] = hash('sha256', $row['id_mahasiswa'], false);
         $_SESSION['level'] = 'mahasiswa';
+         // jika remember diklik
+        if(isset($_POST['remember'])){
+          setcookie('username', $row['username'], time() + 60 * 60 * 24);
+          $hash = hash('sha256', $row["id_mahasiswa"]);
+          setcookie('hash', $hash, time() + 60 * 60 * 24);
+        }
       if(hash('sha256', $row['id_mahasiswa']) == $_SESSION['hash']){
         header("Location: mahasiswa_riwayat.php");
         die;
@@ -75,11 +87,13 @@ if(isset($_POST['register'])){
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>new_login</title>
+    <title>HappyMusical | Login | Sign Up</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
     <!-- FONTAWESOWE -->
     <link rel="stylesheet" type="text/css" href="../assets/css/fontawesome-free/css/all.min.css">
+
+    <link rel="shortcut icon" href="../assets/image/favicon.ico">
 
     <style>
     nav{
@@ -99,7 +113,7 @@ if(isset($_POST['register'])){
 .register-photo .image-holder {
   display: table-cell;
   width: auto;
-  background: url(../assets/image/5984123.jpg);
+  background: url(../assets/image/62236.jpg);
   background-size: cover;
 }
 
@@ -218,7 +232,7 @@ if(isset($_POST['register'])){
     endif ?>
       <input class="form-control mr-sm-2 mb-2" name="username" type="text" placeholder="Username" aria-label="Username" autofocus autocomplete="off" required>
       <input class="form-control mr-sm-2 mb-2" name="password" type="password" placeholder="Password" aria-label="Password" autocomplete="off" required>
-      <div class="remember float-left">
+      <div class="remember">
         <input type="checkbox" name="remember" id="remember">Remember Me. 
         </div>
       <button name="submit" class="btn btn-outline-light my-2 my-sm-0" type="submit">Login</button>

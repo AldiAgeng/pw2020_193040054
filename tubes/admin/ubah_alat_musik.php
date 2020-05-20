@@ -1,4 +1,10 @@
 <?php
+  session_start();
+  if(!isset($_SESSION["username"])){
+  header("Location: ../includes/new_login.php");
+  exit;
+}
+
   require '../config/functions.php';
 
   $id = $_GET['id'];
@@ -31,30 +37,26 @@
     <!-- FONTAWESOWE -->
     <link rel="stylesheet" type="text/css" href="../assets/css/fontawesome-free/css/all.min.css">
 
+    <link rel="shortcut icon" href="../assets/image/favicon.ico">
+
     <style>
     form img{
       width: 50px;
       height: 50px;
     }
+    nav{
+      background: rgb(130, 14, 208);
+    }
     </style>
 
 
-    <title>Form Ubah Data Alat Musik</title>
+    <title>HappyMusical | Alat Musik</title>
   </head>
   <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-info fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
     <div class="container">
-    <a class="navbar-brand" href="#">Selamat Datang Admin</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
+    <a class="navbar-brand text-white" href="#"><i class="fas fa-compact-disc"></i> HappyMusical</a>
   
-      <div class="icon ml-auto">
-        <h5>
-          <i class="fas fa-envelope mr-3" data-toggle="tooltip" title="Surat Masuk"></i>
-          <i class="fas fa-sign-out-alt mr-3" data-toggle="tooltip" title="Sign Out"></i>
-        </h5>
-      </div>
     </div>
     </div>
   </nav>
@@ -88,7 +90,8 @@
         </div>
         <div class="form-group">
           <label for="gambar">Gambar</label>
-          <input type="file" name="gambar" class="form-control" id="gambar" placeholder="Gambar" required value="<?= $alat_musik['gambar'] ?>">
+          <input type="hidden" name="gambar_lama" value="<?= $alat_musik['gambar'] ?>">
+          <input type="file" name="gambar" class="form-control" id="gambar" placeholder="Gambar" value="<?= $alat_musik['gambar'] ?>">
         </div>
         <button type="submit" name="ubah" class="btn btn-info">Ubah</button>
         <a href="alat_musik.php" type="submit" class="btn btn-info">Kembali</a>
@@ -96,6 +99,12 @@
     
     </div>
   </div>
+  <div class="row">
+        <div class="col">
+          <hr>
+          <footer><p>Copyright&#169; AldiAgeng2020</p></footer>
+        </div>
+      </div>
   </div>
       
       

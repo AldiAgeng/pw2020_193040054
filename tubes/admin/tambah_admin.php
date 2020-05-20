@@ -1,4 +1,10 @@
 <?php
+  session_start();
+  if(!isset($_SESSION["username"])){
+  header("Location: ../includes/new_login.php");
+  exit;
+}
+
   require '../config/functions.php';
   if(isset($_POST['tambah'])){
     if(tambah_admin($_POST) > 0){
@@ -27,21 +33,20 @@
     <!-- FONTAWESOWE -->
     <link rel="stylesheet" type="text/css" href="../assets/css/fontawesome-free/css/all.min.css">
 
+    <link rel="shortcut icon" href="../assets/image/favicon.ico">
+
     <style>
     nav{
       background: rgb(130, 14, 208);
     }
     </style>
 
-    <title>Hello, world!</title>
+    <title>HappyMusical | Admin</title>
   </head>
   <body>
     <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
     <div class="container">
-    <a class="navbar-brand" href="#">Selamat Datang Admin</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
+    <a class="navbar-brand text-white" href="#"><i class="fas fa-compact-disc"></i> HappyMusical</a>
   
     </div>
     </div>
@@ -75,6 +80,12 @@
       </form>
     
     </div>
+    <div class="row">
+        <div class="col">
+          <hr>
+          <footer><p>Copyright&#169; AldiAgeng2020</p></footer>
+        </div>
+      </div>
   </div>
   </div>
       
