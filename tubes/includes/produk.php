@@ -166,7 +166,7 @@
             <img class="card-img-top" src="../assets/image/upload/<?= $am['gambar'] ?>" alt="Card image cap">
             <div class="card-body">
               <h5 class="card-title"><?= $am['nama_alat_musik'] ?></h5>
-              <a href="#" type="button" class="btn btn-dark" style="background-color: rgb(130, 14, 208);">Details</a>
+              <a href="details.php?id=<?= $am['id'] ?>" type="button" class="btn btn-dark" style="background-color: rgb(130, 14, 208);">Details</a>
             </div>
           </div>
         </div>
